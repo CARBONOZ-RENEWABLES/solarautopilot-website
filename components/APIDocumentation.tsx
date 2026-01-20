@@ -282,14 +282,14 @@ export default function APIDocumentation() {
                       
                       <p className="text-text-secondary mb-4">{endpoint.description}</p>
                       
-                      {endpoint.params && (
+                      {'params' in endpoint && endpoint.params && (
                         <div className="mb-4">
                           <div className="text-sm text-primary font-semibold mb-2">Parameters:</div>
                           <code className="text-sm text-text-secondary">{endpoint.params}</code>
                         </div>
                       )}
                       
-                      {endpoint.body && (
+                      {'body' in endpoint && endpoint.body && (
                         <div className="mb-4">
                           <div className="text-sm text-primary font-semibold mb-2">Request Body:</div>
                           <pre className="bg-dark rounded-lg p-4 border border-gray-700 overflow-x-auto">
@@ -298,7 +298,7 @@ export default function APIDocumentation() {
                         </div>
                       )}
                       
-                      {endpoint.response && (
+                      {'response' in endpoint && endpoint.response && (
                         <div>
                           <div className="text-sm text-primary font-semibold mb-2">Response:</div>
                           <pre className="bg-dark rounded-lg p-4 border border-gray-700 overflow-x-auto">
