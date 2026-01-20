@@ -130,9 +130,9 @@ export default function InstallationGuide() {
           transition={{ duration: 0.5 }}
           className="max-w-6xl mx-auto"
         >
-          {installSteps[activeTab].platforms ? (
+          {(installSteps[activeTab as keyof typeof installSteps] as any).platforms ? (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              {installSteps[activeTab].platforms.map((platform, platformIndex) => (
+              {(installSteps[activeTab as keyof typeof installSteps] as any).platforms.map((platform: any, platformIndex: number) => (
                 <div key={platformIndex} className="card">
                   <div className="flex items-center space-x-3 mb-6">
                     <platform.icon className="text-primary" size={24} />
@@ -140,7 +140,7 @@ export default function InstallationGuide() {
                   </div>
                   
                   <div className="space-y-4 mb-6">
-                    {platform.steps.map((step, stepIndex) => (
+                    {platform.steps.map((step: string, stepIndex: number) => (
                       <div key={stepIndex} className="flex items-start space-x-3">
                         <div className="bg-primary/20 rounded-full p-1 mt-1 flex-shrink-0">
                           <div className="w-2 h-2 bg-primary rounded-full" />
@@ -151,7 +151,7 @@ export default function InstallationGuide() {
                   </div>
                   
                   <div className="space-y-2">
-                    {platform.notes.map((note, noteIndex) => (
+                    {platform.notes.map((note: string, noteIndex: number) => (
                       <div key={noteIndex} className="flex items-start space-x-2">
                         <CheckCircle className="text-accent-blue flex-shrink-0 mt-0.5" size={14} />
                         <p className="text-xs text-text-secondary">{note}</p>
@@ -164,7 +164,7 @@ export default function InstallationGuide() {
           ) : (
             <div className="card max-w-4xl mx-auto">
               <div className="space-y-6">
-                {installSteps[activeTab].steps.map((step, stepIndex) => (
+                {(installSteps[activeTab as keyof typeof installSteps] as any).steps.map((step: string, stepIndex: number) => (
                   <div key={stepIndex} className="flex items-start space-x-4">
                     <div className="flex-shrink-0">
                       <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
@@ -179,7 +179,7 @@ export default function InstallationGuide() {
               </div>
               
               <div className="mt-8 space-y-2">
-                {installSteps[activeTab].notes.map((note, noteIndex) => (
+                {(installSteps[activeTab as keyof typeof installSteps] as any).notes.map((note: string, noteIndex: number) => (
                   <div key={noteIndex} className="flex items-start space-x-2">
                     <CheckCircle className="text-accent-blue flex-shrink-0 mt-0.5" size={14} />
                     <p className="text-sm text-text-secondary">{note}</p>
