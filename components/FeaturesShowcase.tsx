@@ -53,8 +53,8 @@ export default function FeaturesShowcase() {
           </p>
         </motion.div>
 
-        <div className="space-y-24">
-          {features.map((feature, index) => (
+        <div className="space-y-12">
+          {features.slice(0, 2).map((feature, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 40 }}
@@ -104,6 +104,7 @@ export default function FeaturesShowcase() {
                     src={feature.image}
                     alt={feature.title}
                     className="w-full h-80 lg:h-96 object-cover"
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-dark/60 via-transparent to-transparent" />
                   
