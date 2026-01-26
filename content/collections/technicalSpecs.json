@@ -1,0 +1,135 @@
+{
+  "title": "Technical Specifications",
+  "subtitle": "Built on modern, scalable architecture with enterprise-grade reliability",
+  "techStack": [
+    {
+      "id": "1",
+      "category": "Backend",
+      "icon": "server",
+      "technologies": [
+        { "name": "Node.js", "version": "14+", "description": "Runtime environment" },
+        { "name": "Express.js", "version": "4.21+", "description": "Web framework" },
+        { "name": "MQTT", "version": "4.2+", "description": "IoT messaging" },
+        { "name": "WebSocket", "version": "8.2+", "description": "Real-time communication" }
+      ],
+      "enabled": true
+    },
+    {
+      "id": "2",
+      "category": "Database",
+      "icon": "database",
+      "technologies": [
+        { "name": "InfluxDB", "version": "2.x", "description": "Time-series data" },
+        { "name": "MongoDB", "version": "Optional", "description": "Configuration storage" },
+        { "name": "Redis", "version": "Optional", "description": "Caching layer" }
+      ],
+      "enabled": true
+    },
+    {
+      "id": "3",
+      "category": "Frontend",
+      "icon": "globe",
+      "technologies": [
+        { "name": "React", "version": "18+", "description": "UI framework" },
+        { "name": "Vite", "version": "5+", "description": "Build tool" },
+        { "name": "TailwindCSS", "version": "3+", "description": "Styling" },
+        { "name": "Chart.js", "version": "Latest", "description": "Data visualization" }
+      ],
+      "enabled": true
+    },
+    {
+      "id": "4",
+      "category": "AI/ML",
+      "icon": "cpu",
+      "technologies": [
+        { "name": "TensorFlow.js", "version": "Optional", "description": "Neural networks" },
+        { "name": "Custom ML", "version": "Built-in", "description": "Pattern recognition" },
+        { "name": "DQN", "version": "Custom", "description": "Reinforcement learning" },
+        { "name": "K-means", "version": "Built-in", "description": "Clustering" }
+      ],
+      "enabled": true
+    }
+  ],
+  "systemRequirements": [
+    {
+      "id": "1",
+      "platform": "Minimum",
+      "specs": [
+        { "label": "CPU", "value": "2 cores @ 1.5 GHz" },
+        { "label": "RAM", "value": "512 MB" },
+        { "label": "Storage", "value": "2 GB" },
+        { "label": "Network", "value": "10 Mbps" }
+      ]
+    },
+    {
+      "id": "2",
+      "platform": "Recommended",
+      "specs": [
+        { "label": "CPU", "value": "4 cores @ 2.0 GHz" },
+        { "label": "RAM", "value": "1 GB" },
+        { "label": "Storage", "value": "10 GB SSD" },
+        { "label": "Network", "value": "100 Mbps" }
+      ]
+    },
+    {
+      "id": "3",
+      "platform": "Optimal",
+      "specs": [
+        { "label": "CPU", "value": "4+ cores @ 2.5 GHz" },
+        { "label": "RAM", "value": "2 GB+" },
+        { "label": "Storage", "value": "20 GB SSD" },
+        { "label": "Network", "value": "Gigabit" }
+      ]
+    }
+  ],
+  "supportedInverters": [
+    {
+      "id": "1",
+      "brand": "Deye / Sunsynk",
+      "models": "All hybrid models",
+      "protocol": "Modbus TCP/RTU",
+      "status": "Full Support",
+      "enabled": true
+    },
+    {
+      "id": "2",
+      "brand": "Voltronic / Axpert",
+      "models": "MPP Solar series",
+      "protocol": "Serial/USB",
+      "status": "Full Support",
+      "enabled": true
+    },
+    {
+      "id": "3",
+      "brand": "Growatt",
+      "models": "SPH/MIN series",
+      "protocol": "Modbus TCP",
+      "status": "Full Support",
+      "enabled": true
+    },
+    {
+      "id": "4",
+      "brand": "SMA",
+      "models": "Sunny Boy Storage",
+      "protocol": "Modbus TCP",
+      "status": "Beta",
+      "enabled": true
+    },
+    {
+      "id": "5",
+      "brand": "Fronius",
+      "models": "Symo Hybrid",
+      "protocol": "Solar API",
+      "status": "Planned",
+      "enabled": true
+    },
+    {
+      "id": "6",
+      "brand": "Huawei",
+      "models": "LUNA series",
+      "protocol": "Modbus TCP",
+      "status": "Planned",
+      "enabled": true
+    }
+  ]
+}

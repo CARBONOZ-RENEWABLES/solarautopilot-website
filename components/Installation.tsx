@@ -1,0 +1,191 @@
+'use client'
+
+import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
+import { Monitor, Apple, HardDrive, Container, Server, CheckCircle, Download, ArrowRight } from 'lucide-react'
+import { getInstallationContent, InstallationContent } from '@/lib/admin'
+
+const iconMap: Record<string, any> = {
+  'Windows': Monitor,
+  'macOS': Apple,
+  'Linux': Server,
+  'Home Assistant Add-on': HardDrive,
+  'Docker Container': Container
+}
+
+export default function Installation() {
+  const [content, setContent] = useState<InstallationContent | null>(null)
+  const [selectedPlatform, setSelectedPlatform] = useState<number>(0)
+
+  useEffect(() => {
+    setContent(getInstallationContent())
+  }, [])
+
+  if (!content) return null
+
+  const enabledPlatforms = content.platforms.filter(p => p.enabled)
+  const enabledStats = content.stats.filter(s => s.enabled)
+
+  return (
+    <section className="section-padding bg-dark relative overflow-hidden">
+      {/* Background Decoration */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-primary rounded-full blur-3xl" />
+      </div>
+
+      <div className="container-custom relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-2 mb-6">
+            <Download className="w-4 h-4 text-primary" />
+            <span className="text-primary text-sm font-medium">Quick Setup</span>
+          </div>
+          <h2 className="heading-2 mb-6" dangerouslySetInnerHTML={{ __html: content.title }} />
+          <p className="body-large text-text-secondary max-w-3xl mx-auto mb-12">
+            {content.subtitle}
+          </p>
+
+          {/* Stats */}
+          <div className="flex flex-wrap justify-center gap-12 mb-12">
+            {enabledStats.map((stat, index) => (
+              <motion.div
+                key={stat.id}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="text-center"
+              >
+                <div className="text-5xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent mb-2">
+                  {stat.value}
+                </div>
+                <div className="body-base text-text-secondary">{stat.label}</div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Platform Tabs */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="flex flex-wrap justify-center gap-3 mb-12"
+        >
+          {enabledPlatforms.map((platform, index) => {
+            const Icon = iconMap[platform.name] || Monitor
+            return (
+              <button
+                key={platform.id}
+                onClick={() => setSelectedPlatform(index)}
+                className={`flex items-center gap-3 px-6 py-3 rounded-xl font-medium transition-all ${
+                  selectedPlatform === index
+                    ? 'bg-primary text-dark shadow-glow'
+                    : 'bg-dark-secondary text-white hover:bg-dark-tertiary border border-dark-border'
+                }`}
+              >
+                <Icon size={20} />
+                <span>{platform.name}</span>
+              </button>
+            )
+          })}
+        </motion.div>
+
+        {/* Selected Platform Content */}
+        <motion.div
+          key={selectedPlatform}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="max-w-4xl mx-auto"
+        >
+          <div className="card-elevated">
+            <div className="p-8">
+              {/* Platform Header */}
+              <div className="flex items-center gap-4 mb-8 pb-6 border-b border-dark-border">
+                {(() => {
+                  const Icon = iconMap[enabledPlatforms[selectedPlatform].name] || Monitor
+                  return (
+                    <div className="bg-primary/10 border border-primary/20 rounded-2xl p-4">
+                      <Icon className="text-primary" size={32} />
+                    </div>
+                  )
+                })()}
+                <div>
+                  <h3 className="heading-3 mb-1">{enabledPlatforms[selectedPlatform].name}</h3>
+                  <p className="body-small text-text-secondary">Follow these steps to get started</p>
+                </div>
+              </div>
+
+              {/* Installation Steps */}
+              <div className="space-y-6 mb-8">
+                <h4 className="heading-4 flex items-center gap-2">
+                  <div className="w-1 h-6 bg-primary rounded-full" />
+                  Installation Steps
+                </h4>
+                {enabledPlatforms[selectedPlatform].steps.map((step, stepIndex) => (
+                  <motion.div
+                    key={stepIndex}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: stepIndex * 0.1 }}
+                    className="flex items-start gap-4 p-4 rounded-xl bg-dark-secondary/50 hover:bg-dark-secondary transition-colors group"
+                  >
+                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center shadow-lg">
+                      <span className="text-dark text-sm font-bold">{stepIndex + 1}</span>
+                    </div>
+                    <div className="flex-1">
+                      <p className="body-base text-white leading-relaxed">{step}</p>
+                    </div>
+                    <ArrowRight className="w-5 h-5 text-primary opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Requirements */}
+              <div className="border-t border-dark-border pt-6">
+                <h4 className="heading-4 flex items-center gap-2 mb-4">
+                  <div className="w-1 h-6 bg-primary rounded-full" />
+                  Requirements
+                </h4>
+                <div className="grid md:grid-cols-2 gap-3">
+                  {enabledPlatforms[selectedPlatform].requirements.map((req, reqIndex) => (
+                    <motion.div
+                      key={reqIndex}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: reqIndex * 0.05 }}
+                      className="flex items-start gap-3 p-3 rounded-lg bg-dark-tertiary/30"
+                    >
+                      <CheckCircle size={18} className="text-primary flex-shrink-0 mt-0.5" />
+                      <span className="body-small text-text-secondary">{req}</span>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Bottom CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mt-12"
+        >
+          <p className="body-base text-text-secondary mb-4">Need help with installation?</p>
+          <a href="#community" className="btn-secondary inline-flex">
+            Get Support
+          </a>
+        </motion.div>
+      </div>
+    </section>
+  )
+}

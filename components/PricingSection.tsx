@@ -90,11 +90,11 @@ export default function PricingSection() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
                 <motion.a
                   href="#download"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="btn-primary text-lg px-8 py-4 flex items-center justify-center space-x-3"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="btn-primary text-base px-6 py-3 inline-flex items-center space-x-2"
                 >
-                  <Download size={20} />
+                  <Download size={18} />
                   <span>Start Using Now</span>
                 </motion.a>
                 
@@ -102,11 +102,11 @@ export default function PricingSection() {
                   href="https://github.com/solarautopilot"
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="btn-secondary text-lg px-8 py-4 flex items-center justify-center space-x-3"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="btn-secondary text-base px-6 py-3 inline-flex items-center space-x-2"
                 >
-                  <Github size={20} />
+                  <Github size={18} />
                   <span>View Source Code</span>
                 </motion.a>
               </div>

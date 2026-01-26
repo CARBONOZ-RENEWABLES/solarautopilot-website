@@ -1,0 +1,43 @@
+{
+  "title": "Quick Installation",
+  "installations": [
+    {
+      "id": "1",
+      "title": "Home Assistant Add-on",
+      "url": "https://github.com/eelitedesire/SolarAutopilotApp",
+      "enabled": true
+    },
+    {
+      "id": "2",
+      "title": "Desktop App",
+      "description": "Download from GitHub Actions → Universal Builds → Extract → Install",
+      "enabled": true
+    }
+  ],
+  "stats": [
+    {
+      "id": "1",
+      "value": "5+",
+      "label": "Platforms",
+      "enabled": true
+    },
+    {
+      "id": "2",
+      "value": "Free",
+      "label": "Download",
+      "enabled": true
+    },
+    {
+      "id": "3",
+      "value": "12.7%",
+      "label": "Cost Savings",
+      "enabled": true
+    },
+    {
+      "id": "4",
+      "value": "AI",
+      "label": "Powered",
+      "enabled": true
+    }
+  ]
+}

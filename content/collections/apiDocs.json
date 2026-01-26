@@ -1,0 +1,61 @@
+{
+  "title": "API Documentation",
+  "subtitle": "Complete REST API and MQTT reference for integrating with SolarAutopilot",
+  "tabs": ["REST API", "MQTT Topics", "WebSocket", "AI System"],
+  "endpoints": [
+    {
+      "id": "1",
+      "category": "AI System",
+      "method": "GET",
+      "path": "/ai/status",
+      "description": "Get current AI system status and confidence levels",
+      "response": "{\n  \"enabled\": true,\n  \"confidence\": 0.87,\n  \"lastUpdate\": \"2024-01-15T10:30:00Z\",\n  \"models\": {\n    \"solar\": \"trained\",\n    \"load\": \"trained\",\n    \"charging\": \"optimizing\"\n  }\n}",
+      "enabled": true
+    },
+    {
+      "id": "2",
+      "category": "AI System",
+      "method": "GET",
+      "path": "/ai/predictions",
+      "description": "Get next 24-hour energy predictions",
+      "response": "{\n  \"solar\": [\n    {\"time\": \"2024-01-15T11:00:00Z\", \"power\": 2.5, \"confidence\": 0.85}\n  ],\n  \"load\": [\n    {\"time\": \"2024-01-15T11:00:00Z\", \"power\": 1.2, \"confidence\": 0.92}\n  ]\n}",
+      "enabled": true
+    },
+    {
+      "id": "3",
+      "category": "AI System",
+      "method": "POST",
+      "path": "/ai/toggle",
+      "description": "Enable or disable AI optimization",
+      "request": "{\n  \"enabled\": true\n}",
+      "enabled": true
+    },
+    {
+      "id": "4",
+      "category": "System Data",
+      "method": "GET",
+      "path": "/api/system/status",
+      "description": "Get real-time system status",
+      "response": "{\n  \"battery\": {\n    \"soc\": 75,\n    \"voltage\": 52.4,\n    \"current\": 15.2,\n    \"power\": 796.48\n  },\n  \"solar\": {\n    \"power\": 3200,\n    \"voltage\": 380,\n    \"current\": 8.4\n  }\n}",
+      "enabled": true
+    },
+    {
+      "id": "5",
+      "category": "System Data",
+      "method": "GET",
+      "path": "/api/data/history",
+      "description": "Query historical energy data",
+      "parameters": "start, end, measurement",
+      "enabled": true
+    },
+    {
+      "id": "6",
+      "category": "Control",
+      "method": "POST",
+      "path": "/api/control/charge",
+      "description": "Control battery charging",
+      "request": "{\n  \"action\": \"start\",\n  \"current\": 30,\n  \"mode\": \"grid\"\n}",
+      "enabled": true
+    }
+  ]
+}

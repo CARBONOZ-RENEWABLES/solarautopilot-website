@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Check, X, Star } from 'lucide-react'
+import { Check, X, Star, Zap } from 'lucide-react'
 
 const features = [
   { name: 'Cross-Platform Support', traditional: false, homeAssistant: 'HA Only', solarAutopilot: 'Desktop Apps + HA Add-on' },
@@ -24,10 +24,10 @@ const renderCell = (value: boolean | string) => {
   }
   
   if (value === 'manual') {
-    return <span className="text-yellow-500 text-sm">Manual Rules</span>
+    return <span className="text-yellow-500 body-small font-medium">Manual Rules</span>
   }
   
-  return <span className="text-sm">{value}</span>
+  return <span className="body-small font-medium">{value}</span>
 }
 
 export default function ComparisonTable() {
@@ -41,10 +41,10 @@ export default function ComparisonTable() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">
+          <h2 className="heading-2 mb-6">
             <span className="text-primary">SolarAutopilot</span> vs Traditional Systems
           </h2>
-          <p className="text-xl text-text-secondary max-w-3xl mx-auto">
+          <p className="body-large text-text-secondary max-w-4xl mx-auto">
             See how SolarAutopilot's multi-platform approach compares to traditional solar management and Home Assistant-only solutions.
           </p>
         </motion.div>
@@ -56,15 +56,15 @@ export default function ComparisonTable() {
           viewport={{ once: true }}
           className="overflow-x-auto"
         >
-          <div className="bg-dark-secondary rounded-xl border border-gray-700 overflow-hidden min-w-[600px]">
+          <div className="card-elevated overflow-hidden min-w-[600px]">
             {/* Header */}
-            <div className="grid grid-cols-4 bg-dark border-b border-gray-700">
-              <div className="p-4 font-semibold">Feature</div>
-              <div className="p-4 font-semibold text-center">Traditional</div>
-              <div className="p-4 font-semibold text-center">Home Assistant</div>
-              <div className="p-4 font-semibold text-center bg-primary/10 text-primary flex items-center justify-center">
-                <Star size={16} className="mr-2" />
-                SolarAutopilot
+            <div className="grid grid-cols-4 bg-dark-tertiary border-b border-dark-border">
+              <div className="p-5 heading-4">Feature</div>
+              <div className="p-5 heading-4 text-center">Traditional</div>
+              <div className="p-5 heading-4 text-center">Home Assistant</div>
+              <div className="p-5 heading-4 text-center bg-primary/10 text-primary flex items-center justify-center space-x-2">
+                <Star size={18} className="fill-primary" />
+                <span>SolarAutopilot</span>
               </div>
             </div>
 
@@ -76,14 +76,14 @@ export default function ComparisonTable() {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className={`grid grid-cols-4 border-b border-gray-700 hover:bg-dark/50 transition-colors ${
-                  index % 2 === 0 ? 'bg-dark/20' : ''
+                className={`grid grid-cols-4 border-b border-dark-border hover:bg-surface-hover transition-colors ${
+                  index % 2 === 0 ? 'bg-dark-tertiary/30' : ''
                 }`}
               >
-                <div className="p-4 font-medium">{feature.name}</div>
-                <div className="p-4 text-center">{renderCell(feature.traditional)}</div>
-                <div className="p-4 text-center">{renderCell(feature.homeAssistant)}</div>
-                <div className="p-4 text-center bg-primary/5 font-medium">
+                <div className="p-5 body-base font-medium">{feature.name}</div>
+                <div className="p-5 text-center">{renderCell(feature.traditional)}</div>
+                <div className="p-5 text-center">{renderCell(feature.homeAssistant)}</div>
+                <div className="p-5 text-center bg-primary/5 font-medium">
                   {renderCell(feature.solarAutopilot)}
                 </div>
               </motion.div>
@@ -99,12 +99,19 @@ export default function ComparisonTable() {
           viewport={{ once: true }}
           className="text-center mt-12"
         >
-          <div className="bg-primary/10 border border-primary/20 rounded-xl p-6 max-w-2xl mx-auto">
-            <h3 className="text-xl font-semibold mb-3 text-primary">Why Choose SolarAutopilot?</h3>
-            <p className="text-text-secondary">
-              The only cross-platform solution that combines advanced AI optimization with zero-configuration setup. 
-              Run on any platform - start saving money in minutes, not hours.
-            </p>
+          <div className="card-elevated bg-primary/5 border-primary/30 max-w-3xl mx-auto">
+            <div className="flex items-start space-x-4">
+              <div className="bg-primary/20 border border-primary/30 rounded-2xl p-3 flex-shrink-0">
+                <Zap className="text-primary" size={24} />
+              </div>
+              <div className="text-left">
+                <h3 className="heading-4 mb-3 text-primary">Why Choose SolarAutopilot?</h3>
+                <p className="body-base text-text-secondary">
+                  The only cross-platform solution that combines advanced AI optimization with zero-configuration setup. 
+                  Run on any platform - start saving money in minutes, not hours.
+                </p>
+              </div>
+            </div>
           </div>
         </motion.div>
       </div>

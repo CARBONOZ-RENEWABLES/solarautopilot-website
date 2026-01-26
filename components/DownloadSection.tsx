@@ -1,67 +1,53 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Download, Monitor, Smartphone, HardDrive, Container, Apple } from 'lucide-react'
-
-const platforms = [
-  {
-    icon: Monitor,
-    name: 'Windows',
-    version: '1.1.0',
-    size: '483 MB',
-    requirements: 'Windows 10+',
-    downloads: [
-      { label: 'Download .exe (x64)', type: 'exe', url: 'https://github.com/eelitedesire/SolarAutopilotApp/actions' },
-      { label: 'Download Portable', type: 'portable', url: 'https://github.com/eelitedesire/SolarAutopilotApp/actions' }
-    ]
-  },
-  {
-    icon: Smartphone,
-    name: 'Linux',
-    version: '1.1.0',
-    size: '223 MB',
-    requirements: 'Ubuntu 18.04+, Debian 10+',
-    downloads: [
-      { label: 'Download AppImage', type: 'appimage', url: 'https://github.com/eelitedesire/SolarAutopilotApp/actions' },
-      { label: 'Raspberry Pi (ARM64)', type: 'arm', url: 'https://github.com/eelitedesire/SolarAutopilotApp/actions' }
-    ]
-  },
-  {
-    icon: Apple,
-    name: 'macOS',
-    version: '1.1.0',
-    size: '696 MB',
-    requirements: 'macOS 10.13+',
-    downloads: [
-      { label: 'Download .dmg (Universal)', type: 'dmg', url: 'https://github.com/eelitedesire/SolarAutopilotApp/actions' },
-      { label: 'Installation Guide', type: 'docs', url: '#install-guide' }
-    ]
-  },
-  {
-    icon: HardDrive,
-    name: 'Home Assistant',
-    version: '1.1.0',
-    size: '89 MB',
-    requirements: 'HA OS/Supervised',
-    downloads: [
-      { label: 'Add Repository', type: 'addon', url: 'https://github.com/eelitedesire/SolarAutopilotApp' },
-      { label: 'View Guide', type: 'docs', url: '#install-guide' }
-    ]
-  }
-]
-
-const installCommands = [
-  {
-    title: 'Home Assistant Add-on',
-    command: 'https://github.com/eelitedesire/SolarAutopilotApp'
-  },
-  {
-    title: 'Desktop App',
-    command: 'Download from GitHub Actions → Universal Builds → Extract → Install'
-  }
-]
+import { Download, Monitor, Smartphone, HardDrive, Container, Apple, Copy, Check } from 'lucide-react'
+import { DownloadItem, getDownloads, getDownloadSectionContent } from '@/lib/admin'
 
 export default function DownloadSection() {
+  const [downloads, setDownloads] = useState<DownloadItem[]>([])
+  const [sectionContent, setSectionContent] = useState({ title: '', description: '' })
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null)
+
+  useEffect(() => {
+    setDownloads(getDownloads())
+    setSectionContent(getDownloadSectionContent())
+  }, [])
+
+  const enabledDownloads = downloads.filter(d => d.enabled)
+
+  const getIcon = (platform: string) => {
+    switch (platform.toLowerCase()) {
+      case 'windows':
+      case 'windows x64':
+      case 'windows x86':
+        return Monitor
+      case 'macos':
+      case 'macos universal':
+        return Apple
+      case 'linux':
+      case 'linux deb':
+      case 'linux appimage':
+        return Smartphone
+      case 'home assistant':
+      case 'home assistant add-on':
+        return HardDrive
+      default:
+        return Download
+    }
+  }
+
+  const copyToClipboard = async (text: string, index: number) => {
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopiedIndex(index)
+      setTimeout(() => setCopiedIndex(null), 2000)
+    } catch (err) {
+      console.error('Failed to copy text: ', err)
+    }
+  }
+
   return (
     <section id="download" className="section-padding bg-dark">
       <div className="container-custom">
@@ -72,61 +58,60 @@ export default function DownloadSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">
-            Download <span className="text-primary">SolarAutopilot</span>
+          <h2 className="heading-2 mb-6">
+            <span dangerouslySetInnerHTML={{ __html: sectionContent.title }} />
           </h2>
-          <p className="text-xl text-text-secondary max-w-3xl mx-auto">
-            Choose your platform and start optimizing in minutes. All downloads are free and require no registration. 
-            Available as desktop apps for Windows, macOS, Linux, and as a Home Assistant add-on.
+          <p className="body-large text-text-secondary max-w-4xl mx-auto px-4">
+            {sectionContent.description}
           </p>
         </motion.div>
 
         {/* Platform Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-          {platforms.map((platform, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="card hover:scale-105 transition-transform duration-300"
-            >
-              <div className="text-center">
-                <div className="flex justify-center mb-4">
-                  <div className="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center">
-                    <platform.icon size={32} className="text-primary" />
+        <div className="grid-auto-fit mb-16">
+          {enabledDownloads.map((download, index) => {
+            const Icon = getIcon(download.platform)
+            return (
+              <motion.div
+                key={download.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="card-interactive"
+              >
+                <div className="text-center">
+                  <div className="flex justify-center mb-6">
+                    <div className="w-16 h-16 bg-primary/10 border border-primary/20 rounded-2xl flex items-center justify-center">
+                      <Icon size={28} className="text-primary" />
+                    </div>
                   </div>
+                  
+                  <h3 className="heading-4 mb-4">{download.platform}</h3>
+                  
+                  <div className="space-y-2 mb-6 body-small text-text-secondary">
+                    <div className="flex justify-between">
+                      <span>Version:</span>
+                      <span className="text-primary font-medium">{download.version}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Size:</span>
+                      <span className="text-text-primary font-medium">{download.size}</span>
+                    </div>
+                  </div>
+                  
+                  <a
+                    href={download.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-primary w-full text-sm py-3 space-x-2"
+                  >
+                    <Download size={16} />
+                    <span>Download {download.platform}</span>
+                  </a>
                 </div>
-                
-                <h3 className="text-xl font-semibold mb-2">{platform.name}</h3>
-                
-                <div className="space-y-1 mb-6 text-sm text-text-secondary">
-                  <div>Version: {platform.version}</div>
-                  <div>Size: {platform.size}</div>
-                  <div>Requirements: {platform.requirements}</div>
-                </div>
-                
-                <div className="space-y-2">
-                  {platform.downloads.map((download, downloadIndex) => (
-                    <a
-                      key={downloadIndex}
-                      href={download.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`w-full py-2 px-4 rounded-lg font-medium transition-all duration-200 block text-center ${
-                        downloadIndex === 0
-                          ? 'bg-primary text-dark hover:bg-primary-dark'
-                          : 'border border-primary text-primary hover:bg-primary hover:text-dark'
-                      }`}
-                    >
-                      {download.label}
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            )
+          })}
         </div>
 
         {/* Installation Commands */}
@@ -135,22 +120,38 @@ export default function DownloadSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
-          className="bg-dark-secondary rounded-xl p-8 border border-gray-700"
+          className="card-elevated border-primary/20 mb-16"
         >
-          <h3 className="text-2xl font-semibold mb-6 text-center">Quick Installation</h3>
+          <h3 className="heading-3 mb-8 text-center">Quick Installation</h3>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {installCommands.map((cmd, index) => (
-              <div key={index} className="bg-dark rounded-lg p-4 border border-gray-600">
-                <div className="text-sm text-primary font-medium mb-2">{cmd.title}</div>
-                <div className="bg-gray-900 rounded p-3 font-mono text-sm text-text-secondary overflow-x-auto">
-                  <code>{cmd.command}</code>
-                </div>
-                <button className="mt-3 text-xs text-primary hover:text-primary-dark transition-colors">
-                  Copy to clipboard
-                </button>
+            <div className="space-y-4">
+              <div className="body-base text-primary font-medium">Home Assistant Add-on</div>
+              <div className="code-block">
+                <code className="break-all">https://github.com/CARBONOZ-RENEWABLES/solarautopilot-addon</code>
               </div>
-            ))}
+              <button 
+                onClick={() => copyToClipboard('https://github.com/CARBONOZ-RENEWABLES/solarautopilot-addon', 0)}
+                className="btn-ghost text-xs space-x-2"
+              >
+                {copiedIndex === 0 ? <Check size={14} /> : <Copy size={14} />}
+                <span>{copiedIndex === 0 ? 'Copied!' : 'Copy to clipboard'}</span>
+              </button>
+            </div>
+            
+            <div className="space-y-4">
+              <div className="body-base text-primary font-medium">Desktop App</div>
+              <div className="code-block">
+                <code className="break-all">Download → Extract → Install</code>
+              </div>
+              <button 
+                onClick={() => copyToClipboard('Download → Extract → Install', 1)}
+                className="btn-ghost text-xs space-x-2"
+              >
+                {copiedIndex === 1 ? <Check size={14} /> : <Copy size={14} />}
+                <span>{copiedIndex === 1 ? 'Copied!' : 'Copy to clipboard'}</span>
+              </button>
+            </div>
           </div>
         </motion.div>
 
@@ -160,23 +161,23 @@ export default function DownloadSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
           viewport={{ once: true }}
-          className="grid grid-cols-2 md:grid-cols-3 gap-8 mt-16 text-center"
+          className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center"
         >
-          <div>
-            <div className="text-3xl font-bold text-primary mb-2">5+</div>
-            <div className="text-text-secondary">Platforms</div>
+          <div className="space-y-2">
+            <div className="text-3xl font-bold text-primary">{enabledDownloads.length}+</div>
+            <div className="body-small text-text-secondary">Platforms</div>
           </div>
-          <div>
-            <div className="text-3xl font-bold text-primary mb-2">Free</div>
-            <div className="text-text-secondary">Download</div>
+          <div className="space-y-2">
+            <div className="text-3xl font-bold text-primary">Free</div>
+            <div className="body-small text-text-secondary">Download</div>
           </div>
-          <div>
-            <div className="text-3xl font-bold text-primary mb-2">12.7%</div>
-            <div className="text-text-secondary">Cost Savings</div>
+          <div className="space-y-2">
+            <div className="text-3xl font-bold text-primary">12.7%</div>
+            <div className="body-small text-text-secondary">Cost Savings</div>
           </div>
-          <div>
-            <div className="text-3xl font-bold text-primary mb-2">AI</div>
-            <div className="text-text-secondary">Powered</div>
+          <div className="space-y-2">
+            <div className="text-3xl font-bold text-primary">AI</div>
+            <div className="body-small text-text-secondary">Powered</div>
           </div>
         </motion.div>
       </div>

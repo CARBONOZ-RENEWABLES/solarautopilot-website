@@ -1,0 +1,60 @@
+[
+  {
+    "id": "ai-optimization",
+    "title": "AI Optimization Engine",
+    "description": "Advanced machine learning algorithms optimize your solar energy usage patterns for maximum efficiency and cost savings.",
+    "icon": "brain",
+    "stats": ["Smart learning", "Auto optimization", "12.7% cost savings"],
+    "image": "/images/ai.png",
+    "enabled": true,
+    "order": 1
+  },
+  {
+    "id": "real-time-dashboard",
+    "title": "Real-Time Dashboard",
+    "description": "Monitor your solar system with live data visualization and comprehensive analytics for all your energy metrics.",
+    "icon": "monitor",
+    "stats": ["Live monitoring", "Data visualization", "Energy analytics"],
+    "image": "/images/dashboard.png",
+    "enabled": true,
+    "order": 2
+  },
+  {
+    "id": "smart-automation",
+    "title": "Smart Automation",
+    "description": "Intelligent automation that learns from your usage patterns and automatically optimizes charging schedules.",
+    "icon": "zap",
+    "stats": ["Zero manual work", "Pattern learning", "Automatic optimization"],
+    "enabled": true,
+    "order": 3
+  },
+  {
+    "id": "privacy-security",
+    "title": "Privacy & Security",
+    "description": "Your data stays private with local processing, encrypted communications, and no cloud dependencies.",
+    "icon": "shield",
+    "stats": ["100% private", "Local processing", "No cloud lock-in"],
+    "enabled": true,
+    "order": 4
+  },
+  {
+    "id": "multi-platform",
+    "title": "Multi-Platform Support",
+    "description": "Available as native desktop apps for Windows, macOS, and Linux, plus Home Assistant add-on and Docker container.",
+    "icon": "smartphone",
+    "stats": ["Desktop Apps", "Home Assistant", "Docker Ready"],
+    "image": "/images/homeassistant.png",
+    "enabled": true,
+    "order": 5
+  },
+  {
+    "id": "advanced-analytics",
+    "title": "Advanced Analytics",
+    "description": "Comprehensive energy analytics with historical data spanning 30 days, 12 months, and 10 years with beautiful interactive charts.",
+    "icon": "activity",
+    "stats": ["30 days data", "12 months history", "10 years analytics"],
+    "image": "/images/analytics.png",
+    "enabled": true,
+    "order": 6
+  }
+]

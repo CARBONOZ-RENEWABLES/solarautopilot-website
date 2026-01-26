@@ -1,0 +1,38 @@
+[
+  {
+    "platform": "windows",
+    "version": "2.1.0",
+    "filename": "SolarAutopilot-2.1.0-win64.exe",
+    "downloadUrl": "https://downloads.solarautopilot.com/v2.1.0/windows/SolarAutopilot-2.1.0-win64.exe",
+    "size": "45.2 MB",
+    "checksum": "sha256:abc123def456...",
+    "releaseDate": "2024-01-15"
+  },
+  {
+    "platform": "macos",
+    "version": "2.1.0", 
+    "filename": "SolarAutopilot-2.1.0-universal.dmg",
+    "downloadUrl": "https://downloads.solarautopilot.com/v2.1.0/macos/SolarAutopilot-2.1.0-universal.dmg",
+    "size": "52.8 MB",
+    "checksum": "sha256:def456ghi789...",
+    "releaseDate": "2024-01-15"
+  },
+  {
+    "platform": "linux",
+    "version": "2.1.0",
+    "filename": "SolarAutopilot-2.1.0-linux.AppImage", 
+    "downloadUrl": "https://downloads.solarautopilot.com/v2.1.0/linux/SolarAutopilot-2.1.0-linux.AppImage",
+    "size": "48.1 MB",
+    "checksum": "sha256:ghi789jkl012...",
+    "releaseDate": "2024-01-15"
+  },
+  {
+    "platform": "docker",
+    "version": "2.1.0",
+    "filename": "docker-compose.yml",
+    "downloadUrl": "https://downloads.solarautopilot.com/v2.1.0/docker/docker-compose.yml",
+    "size": "2.1 KB",
+    "installCommand": "docker-compose up -d",
+    "releaseDate": "2024-01-15"
+  }
+]
