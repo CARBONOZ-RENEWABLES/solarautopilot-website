@@ -53,7 +53,7 @@ const installSteps = {
     steps: [
       'Open Home Assistant → Settings → Add-ons',
       'Click "Add-on Store" → Three dots menu → "Repositories"',
-      'Add repository: https://github.com/eelitedesire/SolarAutopilotApp',
+      'Add repository: https://github.com/CARBONOZ-RENEWABLES/solarautopilot',
       'Find "CARBONOZ SolarAutopilot" in the store',
       'Click "Install" and wait for completion',
       'Configure settings and click "Start"'
@@ -68,8 +68,8 @@ const installSteps = {
     title: 'Docker Container',
     icon: Container,
     steps: [
-      'Clone repository: git clone https://github.com/eelitedesire/SolarAutopilotApp.git',
-      'Navigate to directory: cd SolarAutopilotApp',
+      'Clone repository: git clone https://github.com/CARBONOZ-RENEWABLES/solarautopilot.git',
+      'Navigate to directory: cd solarautopilot',
       'Copy environment file: cp .env.example .env',
       'Edit .env with your configuration',
       'Start services: docker-compose up -d',
@@ -199,7 +199,7 @@ export default function InstallationGuide() {
           className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6"
         >
           <a
-            href="https://github.com/eelitedesire/SolarAutopilotApp/actions"
+            href="https://github.com/CARBONOZ-RENEWABLES/solarautopilot/actions"
             target="_blank"
             rel="noopener noreferrer"
             className="card hover:scale-105 transition-transform duration-300 text-center"
@@ -213,7 +213,7 @@ export default function InstallationGuide() {
           </a>
           
           <a
-            href="https://github.com/eelitedesire/SolarAutopilotApp"
+            href="https://github.com/CARBONOZ-RENEWABLES/solarautopilot"
             target="_blank"
             rel="noopener noreferrer"
             className="card hover:scale-105 transition-transform duration-300 text-center"
