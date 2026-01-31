@@ -10,6 +10,9 @@ export const metadata = {
     default: 'SolarAutopilot - AI-Powered Solar Energy Management',
     template: '%s | SolarAutopilot'
   },
+  icons: {
+    icon: 'https://carbonoz.com/assets/images/image04.jpg?v=baf9c51a',
+  },
   description: 'Optimize your solar system with AI that learns your patterns. Save up to 12.7% on electricity costs. Free, open source, and privacy-first solar energy management.',
   keywords: ['solar energy', 'AI optimization', 'battery management', 'cost savings', 'open source', 'solar autopilot', 'home assistant', 'energy management', 'smart solar', 'renewable energy'],
   authors: [{ name: 'CARBONOZ', url: 'https://carbonoz.com' }],
