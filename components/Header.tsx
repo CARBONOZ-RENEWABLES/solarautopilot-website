@@ -13,7 +13,7 @@ export default function Header() {
       <div className="container-custom">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center space-x-3">
+          <a href="/" className="flex items-center space-x-3">
             {headerConfig.logoImage ? (
               <img 
                 src={headerConfig.logoImage} 
@@ -26,7 +26,7 @@ export default function Header() {
               </div>
             )}
             <span className="text-xl font-semibold text-text-primary">SolarAutopilot</span>
-          </div>
+          </a>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-1">
@@ -52,7 +52,7 @@ export default function Header() {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <a href="#download" className="btn-primary text-sm px-5 py-2.5 space-x-2">
+            <a href="/#download" className="btn-primary text-sm px-5 py-2.5 space-x-2">
               <Download size={16} />
               <span>Download</span>
             </a>
@@ -93,7 +93,7 @@ export default function Header() {
                 <span>GitHub</span>
               </a>
               <div className="px-4 pt-2">
-                <a href="#download" className="btn-primary w-full text-sm py-3 space-x-2">
+                <a href="/#download" className="btn-primary w-full text-sm py-3 space-x-2">
                   <Download size={16} />
                   <span>Download</span>
                 </a>

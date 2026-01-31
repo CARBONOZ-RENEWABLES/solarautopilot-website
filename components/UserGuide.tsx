@@ -31,7 +31,7 @@ export default function UserGuide() {
   const enabledTips = content.proTips.filter(t => t.enabled)
 
   return (
-    <section className="section-padding bg-dark">
+    <section id="user-guide" className="section-padding bg-dark">
       <div className="container-custom">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

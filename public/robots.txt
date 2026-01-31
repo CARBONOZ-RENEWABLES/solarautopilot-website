@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://solarautopilot.com/sitemap.xml
+Sitemap: http://192.168.160.98/sitemap.xml

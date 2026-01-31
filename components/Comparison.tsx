@@ -165,10 +165,10 @@ export default function Comparison() {
           <h3 className="heading-3 mb-4" dangerouslySetInnerHTML={{ __html: content.bottomTitle }} />
           <p className="body-large text-text-secondary max-w-3xl mx-auto mb-8">{content.bottomSubtitle}</p>
           <div className="flex flex-wrap justify-center gap-4">
-            <a href="#download" className="btn-primary">
+            <a href="/#download" className="btn-primary">
               Start Your 5-Minute Setup
             </a>
-            <a href="#features" className="btn-secondary">
+            <a href="/#features" className="btn-secondary">
               Explore Features
             </a>
           </div>

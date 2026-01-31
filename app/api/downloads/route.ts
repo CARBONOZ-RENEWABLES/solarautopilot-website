@@ -7,10 +7,14 @@ import { join } from 'path'
 import { existsSync } from 'fs'
 
 export async function GET() {
-  const downloads = await prisma.download.findMany({
-    orderBy: { createdAt: 'desc' },
-  })
-  return NextResponse.json(downloads)
+  try {
+    const downloads = await prisma.download.findMany({
+      orderBy: { createdAt: 'desc' },
+    })
+    return NextResponse.json(downloads)
+  } catch (error) {
+    return NextResponse.json([])
+  }
 }
 
 export async function POST(req: NextRequest) {

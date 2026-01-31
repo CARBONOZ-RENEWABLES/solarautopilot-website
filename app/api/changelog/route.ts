@@ -4,11 +4,15 @@ import { authOptions } from '@/lib/auth/config'
 import { prisma } from '@/lib/db/prisma'
 
 export async function GET() {
-  const changelogs = await prisma.changelog.findMany({
-    where: { published: true },
-    orderBy: { releaseDate: 'desc' },
-  })
-  return NextResponse.json(changelogs)
+  try {
+    const changelogs = await prisma.changelog.findMany({
+      where: { published: true },
+      orderBy: { releaseDate: 'desc' },
+    })
+    return NextResponse.json(changelogs)
+  } catch (error) {
+    return NextResponse.json([])
+  }
 }
 
 export async function POST(req: NextRequest) {

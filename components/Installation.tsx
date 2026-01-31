@@ -181,7 +181,7 @@ export default function Installation() {
           className="text-center mt-12"
         >
           <p className="body-base text-text-secondary mb-4">Need help with installation?</p>
-          <a href="#community" className="btn-secondary inline-flex">
+          <a href="/#community" className="btn-secondary inline-flex">
             Get Support
           </a>
         </motion.div>

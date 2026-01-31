@@ -109,7 +109,7 @@ export default function HowItWorks() {
           viewport={{ once: true }}
           className="text-center mt-16"
         >
-          <a href="#download" className="btn-primary text-base px-6 py-3 inline-flex">
+          <a href="/#download" className="btn-primary text-base px-6 py-3 inline-flex">
             {content.ctaButtonText || content.ctaText}
           </a>
         </motion.div>

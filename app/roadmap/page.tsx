@@ -22,9 +22,13 @@ export default function RoadmapPage() {
 
   useEffect(() => {
     fetch('/api/roadmap')
-      .then(res => res.json())
+      .then(res => res.ok ? res.json() : [])
       .then(data => {
         setRoadmaps(data)
+        setLoading(false)
+      })
+      .catch(() => {
+        setRoadmaps([])
         setLoading(false)
       })
   }, [])

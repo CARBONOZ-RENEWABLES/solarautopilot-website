@@ -22,7 +22,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
           {/* Brand section */}
           <div className="lg:col-span-2">
-            <div className="flex items-center space-x-2 mb-4">
+            <a href="/" className="flex items-center space-x-2 mb-4">
               <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
                 {footerConfig.logoImage ? (
                   <img src={footerConfig.logoImage} alt={footerConfig.companyName} className="w-8 h-8 rounded-lg object-cover" />
@@ -31,7 +31,7 @@ export default function Footer() {
                 )}
               </div>
               <span className="text-xl font-bold">{footerConfig.companyName}</span>
-            </div>
+            </a>
             <p className="text-text-secondary mb-6 leading-relaxed max-w-md">
               {footerConfig.description}
             </p>

@@ -4,21 +4,25 @@ import { authOptions } from '@/lib/auth/config'
 import { prisma } from '@/lib/db/prisma'
 
 export async function GET(req: NextRequest) {
-  const { searchParams } = new URL(req.url)
-  const slug = searchParams.get('slug')
+  try {
+    const { searchParams } = new URL(req.url)
+    const slug = searchParams.get('slug')
 
-  if (slug) {
-    const post = await prisma.blogPost.findUnique({
-      where: { slug, published: true },
+    if (slug) {
+      const post = await prisma.blogPost.findUnique({
+        where: { slug, published: true },
+      })
+      return NextResponse.json(post)
+    }
+
+    const posts = await prisma.blogPost.findMany({
+      where: { published: true },
+      orderBy: { publishedAt: 'desc' },
     })
-    return NextResponse.json(post)
+    return NextResponse.json(posts)
+  } catch (error) {
+    return NextResponse.json([])
   }
-
-  const posts = await prisma.blogPost.findMany({
-    where: { published: true },
-    orderBy: { publishedAt: 'desc' },
-  })
-  return NextResponse.json(posts)
 }
 
 export async function POST(req: NextRequest) {

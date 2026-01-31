@@ -89,7 +89,7 @@ export default function PricingSection() {
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
                 <motion.a
-                  href="#download"
+                  href="/#download"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   className="btn-primary text-base px-6 py-3 inline-flex items-center space-x-2"

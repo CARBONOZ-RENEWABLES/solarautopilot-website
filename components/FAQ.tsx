@@ -133,7 +133,7 @@ export default function FAQ() {
           <p className="body-base text-text-secondary mb-6">
             Can't find the answer you're looking for? Our support team is here to help.
           </p>
-          <a href="#community" className="btn-primary inline-flex">
+          <a href="/#community" className="btn-primary inline-flex">
             Contact Support
           </a>
         </motion.div>

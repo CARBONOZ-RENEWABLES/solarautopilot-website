@@ -335,10 +335,10 @@ const defaultHeroContent: HeroContent = {
 const defaultHeaderContent: HeaderContent = {
   logo: 'SolarAutopilot',
   navigation: [
-    { label: 'Features', href: '#features' },
-    { label: 'AI System', href: '#ai-features' },
-    { label: 'API', href: '#api' },
-    { label: 'Download', href: '#download' }
+    { label: 'Features', href: '/#features' },
+    { label: 'AI System', href: '/#ai-features' },
+    { label: 'API', href: '/#api' },
+    { label: 'Download', href: '/#download' }
   ]
 }
 
@@ -350,9 +350,9 @@ const defaultFooterContent: FooterContent = {
     {
       title: 'Product',
       links: [
-        { name: 'Features', href: '#features' },
-        { name: 'Download', href: '#download' },
-        { name: 'Documentation', href: '/docs' },
+        { name: 'Features', href: '/#features' },
+        { name: 'Download', href: '/#download' },
+        { name: 'User Guide', href: '/#user-guide' },
         { name: 'Roadmap', href: '/roadmap' },
         { name: 'Changelog', href: '/changelog' }
       ]
@@ -360,8 +360,8 @@ const defaultFooterContent: FooterContent = {
     {
       title: 'Resources',
       links: [
-        { name: 'Getting Started', href: '/docs/getting-started' },
-        { name: 'API Docs', href: '/docs/api' },
+        { name: 'Getting Started', href: '/#user-guide' },
+        { name: 'API Docs', href: '/#api' },
         { name: 'GitHub', href: 'https://github.com/solarautopilot', external: true },
         { name: 'Community Forum', href: '/community' },
         { name: 'Blog', href: '/blog' }

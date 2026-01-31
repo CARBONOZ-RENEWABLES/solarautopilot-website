@@ -110,7 +110,7 @@ export default function FinalCTA() {
                 className="flex flex-wrap justify-center gap-4"
               >
                 <motion.a
-                  href="#download"
+                  href="/#download"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="btn-primary group"
@@ -120,7 +120,7 @@ export default function FinalCTA() {
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </motion.a>
                 <motion.a
-                  href="#features"
+                  href="/#features"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="btn-secondary"

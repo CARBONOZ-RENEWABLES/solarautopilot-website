@@ -4,11 +4,15 @@ import { authOptions } from '@/lib/auth/config'
 import { prisma } from '@/lib/db/prisma'
 
 export async function GET() {
-  const roadmaps = await prisma.roadmap.findMany({
-    where: { enabled: true },
-    orderBy: [{ order: 'asc' }, { createdAt: 'desc' }],
-  })
-  return NextResponse.json(roadmaps)
+  try {
+    const roadmaps = await prisma.roadmap.findMany({
+      where: { enabled: true },
+      orderBy: [{ order: 'asc' }, { createdAt: 'desc' }],
+    })
+    return NextResponse.json(roadmaps)
+  } catch (error) {
+    return NextResponse.json([])
+  }
 }
 
 export async function POST(req: NextRequest) {

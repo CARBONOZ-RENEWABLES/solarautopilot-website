@@ -74,7 +74,7 @@ export default function Hero() {
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 px-4">
             <motion.a
-              href="#download"
+              href="/#download"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className="btn-primary text-base px-8 py-4 space-x-3 w-full sm:w-auto shadow-glow"
@@ -84,7 +84,7 @@ export default function Hero() {
             </motion.a>
             
             <motion.a
-              href="#showcase"
+              href="/#showcase"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className="btn-secondary text-base px-8 py-4 space-x-3 w-full sm:w-auto"

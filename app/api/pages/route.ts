@@ -4,16 +4,20 @@ import { authOptions } from '@/lib/auth/config'
 import { prisma } from '@/lib/db/prisma'
 
 export async function GET(req: NextRequest) {
-  const { searchParams } = new URL(req.url)
-  const slug = searchParams.get('slug')
+  try {
+    const { searchParams } = new URL(req.url)
+    const slug = searchParams.get('slug')
 
-  if (!slug) return NextResponse.json({ error: 'Missing slug' }, { status: 400 })
+    if (!slug) return NextResponse.json({ error: 'Missing slug' }, { status: 400 })
 
-  const page = await prisma.page.findUnique({
-    where: { slug, published: true },
-  })
+    const page = await prisma.page.findUnique({
+      where: { slug, published: true },
+    })
 
-  return NextResponse.json(page)
+    return NextResponse.json(page)
+  } catch (error) {
+    return NextResponse.json(null)
+  }
 }
 
 export async function PUT(req: NextRequest) {
