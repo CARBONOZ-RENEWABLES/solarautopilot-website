@@ -27,7 +27,7 @@ export default function AdminLoginPage() {
       setError('Invalid credentials')
       setLoading(false)
     } else {
-      router.push('/admin/dashboard')
+      router.push('/admin')
     }
   }
 

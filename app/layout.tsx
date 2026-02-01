@@ -1,8 +1,5 @@
 import './globals.css'
-import { Inter } from 'next/font/google'
 import SessionProvider from '@/components/SessionProvider'
-
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://192.168.160.98'),
@@ -64,7 +61,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${inter.className} bg-dark text-text-primary antialiased`}>
+      <body className="font-sans bg-dark text-text-primary antialiased">
         <SessionProvider>{children}</SessionProvider>
       </body>
     </html>
