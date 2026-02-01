@@ -1,23 +1,33 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { uploadFile } from '../../../src/lib/cloudflare'
+import { writeFile, mkdir } from 'fs/promises'
+import { join } from 'path'
+import { existsSync } from 'fs'
 
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData()
     const file = formData.get('file') as File
-    const type = formData.get('type') as string // 'image' or 'binary'
     
     if (!file) {
       return NextResponse.json({ error: 'No file provided' }, { status: 400 })
     }
 
+    const bytes = await file.arrayBuffer()
+    const buffer = Buffer.from(bytes)
+    
     const timestamp = Date.now()
     const sanitizedName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_')
-    const key = type === 'binary' 
-      ? `binaries/${timestamp}-${sanitizedName}`
-      : `images/${timestamp}-${sanitizedName}`
-
-    const url = await uploadFile(file, key)
+    const filename = `${timestamp}-${sanitizedName}`
+    
+    const uploadDir = join(process.cwd(), 'public', 'uploads')
+    if (!existsSync(uploadDir)) {
+      await mkdir(uploadDir, { recursive: true })
+    }
+    
+    const filepath = join(uploadDir, filename)
+    await writeFile(filepath, buffer)
+    
+    const url = `/uploads/${filename}`
     
     return NextResponse.json({ 
       success: true, 
