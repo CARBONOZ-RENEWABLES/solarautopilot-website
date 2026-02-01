@@ -42,7 +42,7 @@ export default function AdminPage() {
     logo: '', navigation: []
   })
   const [footerContent, setFooterContent] = useState<FooterContent>({
-    companyName: '', description: '', links: [], socialLinks: []
+    companyName: '', logo: '', description: '', sections: [], socialLinks: [], copyright: '', statusText: '', showStatus: false, madeByText: ''
   })
   const [features, setFeatures] = useState<Feature[]>([])
   const [aiFeatures, setAIFeatures] = useState<AIFeature[]>([])
@@ -67,7 +67,7 @@ export default function AdminPage() {
     performanceMetrics: [], learningPhases: [], academicPoints: []
   })
   const [howItWorks, setHowItWorks] = useState<HowItWorksContent>({
-    title: '', subtitle: '', ctaText: '', steps: []
+    title: '', subtitle: '', ctaText: '', ctaButtonText: '', steps: []
   })
   const [technicalSpecs, setTechnicalSpecs] = useState<TechnicalSpecsContent>({
     title: '', subtitle: '', techStack: [], systemRequirements: [], supportedInverters: [], architecture: [], networkPorts: []

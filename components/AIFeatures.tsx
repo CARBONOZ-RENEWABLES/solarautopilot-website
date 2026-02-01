@@ -7,7 +7,7 @@ import { AIFeature, getAIFeatures, getAIFeaturesSectionContent } from '@/lib/adm
 
 export default function AIFeatures() {
   const [aiFeatures, setAIFeatures] = useState<AIFeature[]>([])
-  const [sectionContent, setSectionContent] = useState({
+  const [sectionContent, setSectionContent] = useState<any>({
     title: '', subtitle: '', badgeText: '', performanceTitle: '', learningTitle: '', academicTitle: '', academicDescription: '',
     performanceMetrics: [], learningPhases: [], academicPoints: []
   })
@@ -179,7 +179,7 @@ export default function AIFeatures() {
           </h3>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {sectionContent.performanceMetrics?.map((metric, index) => (
+            {sectionContent.performanceMetrics?.map((metric: any, index: number) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -212,7 +212,7 @@ export default function AIFeatures() {
           </h3>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {sectionContent.learningPhases?.map((phase, index) => (
+            {sectionContent.learningPhases?.map((phase: any, index: number) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 30 }}
@@ -235,7 +235,7 @@ export default function AIFeatures() {
                 </div>
                 
                 <ul className="space-y-2">
-                  {phase.activities.map((activity, actIndex) => (
+                  {phase.activities.map((activity: string, actIndex: number) => (
                     <li key={actIndex} className="flex items-start space-x-2 text-sm text-text-secondary">
                       <div className="w-1 h-1 bg-primary rounded-full mt-2 flex-shrink-0" />
                       <span>{activity}</span>
@@ -263,7 +263,7 @@ export default function AIFeatures() {
               {sectionContent.academicDescription}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-              {sectionContent.academicPoints?.map((point, index) => (
+              {sectionContent.academicPoints?.map((point: any, index: number) => (
                 <div key={index}>
                   {index === 0 && <Battery className="text-primary mb-2" size={24} />}
                   {index === 1 && <DollarSign className="text-primary mb-2" size={24} />}

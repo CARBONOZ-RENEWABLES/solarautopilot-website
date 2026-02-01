@@ -24,11 +24,11 @@ export default function DynamicContent({ pageSlug }: DynamicContentProps) {
   const renderSection = (section: any, index: number) => {
     switch (section.type) {
       case 'hero':
-        return <Hero key={index} data={section} />
+        return <Hero key={index} />
       case 'features':
-        return <FeaturesShowcase key={index} data={features} />
+        return <FeaturesShowcase key={index} />
       case 'downloads':
-        return <DownloadSection key={index} data={downloads} />
+        return <DownloadSection key={index} />
       default:
         return null
     }
@@ -36,11 +36,11 @@ export default function DynamicContent({ pageSlug }: DynamicContentProps) {
 
   return (
     <div>
-      {pageData?.sections?.map(renderSection) || (
+      {(pageData as any)?.sections?.map(renderSection) || (
         <>
-          <Hero data={pageData?.hero} />
-          <FeaturesShowcase data={features} />
-          <DownloadSection data={downloads} />
+          <Hero />
+          <FeaturesShowcase />
+          <DownloadSection />
         </>
       )}
     </div>

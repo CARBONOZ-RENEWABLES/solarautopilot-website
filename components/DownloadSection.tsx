@@ -13,7 +13,7 @@ export default function DownloadSection() {
 
   useEffect(() => {
     fetchDownloads()
-    setSectionContent(getDownloadSectionContent())
+    getDownloadSectionContent().then(setSectionContent)
   }, [])
 
   const fetchDownloads = async () => {

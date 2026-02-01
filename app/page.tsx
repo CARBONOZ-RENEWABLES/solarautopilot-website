@@ -34,8 +34,8 @@ export default function Home() {
   return (
     <main className="min-h-screen">
       <Header />
-      <Hero data={pageData?.hero} />
-      <FeaturesShowcase data={features} />
+      <Hero />
+      <FeaturesShowcase />
       <BenefitsSection />
       <HowItWorks />
       <Installation />
@@ -47,7 +47,7 @@ export default function Home() {
       <FAQ />
       <Community />
       <Comparison />
-      <DownloadSection data={downloads} />
+      <DownloadSection />
       <FinalCTA />
       <Footer />
     </main>

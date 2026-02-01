@@ -18,8 +18,7 @@ export default function AdminPanel({ onContentChange }: AdminPanelProps) {
   })
 
   useEffect(() => {
-    const heroContent = getHeroContent()
-    setContent(heroContent)
+    getHeroContent().then(setContent)
   }, [])
 
   const handleSave = () => {
