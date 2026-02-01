@@ -13,8 +13,8 @@ export default function AIFeatures() {
   })
 
   useEffect(() => {
-    setAIFeatures(getAIFeatures())
-    setSectionContent(getAIFeaturesSectionContent())
+    getAIFeatures().then(setAIFeatures)
+    getAIFeaturesSectionContent().then(setSectionContent)
   }, [])
 
   const enabledFeatures = aiFeatures.filter(f => f.enabled)

@@ -5,12 +5,13 @@ import { useEffect, useState } from 'react'
 import { getCTAContent, CTAContent } from '@/lib/admin'
 
 export default function FinalCTA() {
-  const [content, setContent] = useState<CTAContent>({ title: "", subtitle: "", primaryButton: "", secondaryButton: "" })
+  const [content, setContent] = useState<CTAContent>({ title: "", subtitle: "", endpoints: [], tabs: [], links: [], features: [], platforms: [], stats: [], sections: [], proTips: [], techStack: [], systemRequirements: [], supportedInverters: [], architecture: [], networkPorts: [], primaryButton: "", secondaryButton: "", ctaTitle: "", ctaSubtitle: "", bottomTitle: "", bottomSubtitle: "" })
 
   useEffect(() => {
     getCTAContent().then(setContent)
   }, [])
 
+  if (!content) return null
 
   return (
     <section className="py-20 bg-dark relative overflow-hidden">

@@ -1,12 +1,20 @@
 'use client'
 import { motion } from 'framer-motion'
 import { Play, Clock, Star, ExternalLink } from 'lucide-react'
-import { getVideoTutorials } from '@/lib/admin'
-import { useState } from 'react'
+import { getVideoTutorials, VideoTutorial } from '@/lib/admin'
+import { useState, useEffect } from 'react'
 
 export default function VideoTutorials() {
-  const tutorials = getVideoTutorials().filter(t => t.enabled)
-  const [selectedVideo, setSelectedVideo] = useState(tutorials[0]?.videoId || null)
+  const [tutorials, setTutorials] = useState<VideoTutorial[]>([])
+  const [selectedVideo, setSelectedVideo] = useState<string | null>(null)
+
+  useEffect(() => {
+    getVideoTutorials().then(data => {
+      const enabled = data.filter(t => t.enabled)
+      setTutorials(enabled)
+      setSelectedVideo(enabled[0]?.videoId || null)
+    })
+  }, [])
 
   return (
     <section className="py-20 bg-dark">

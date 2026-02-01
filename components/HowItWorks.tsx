@@ -17,13 +17,11 @@ const iconMap: Record<string, any> = {
 }
 
 export default function HowItWorks() {
-  const [content, setContent] = useState<HowItWorksContent | null>(null)
+  const [content, setContent] = useState<HowItWorksContent>({ title: '', subtitle: '', ctaText: '', ctaButtonText: '', steps: [] })
 
   useEffect(() => {
-    setContent(getHowItWorksContent())
+    getHowItWorksContent().then(setContent)
   }, [])
-
-  if (!content) return null
 
   const enabledSteps = content.steps.filter(step => step.enabled)
 

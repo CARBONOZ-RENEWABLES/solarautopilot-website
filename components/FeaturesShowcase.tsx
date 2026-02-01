@@ -11,8 +11,8 @@ export default function FeaturesShowcase() {
   const [activeFeature, setActiveFeature] = useState(0)
 
   useEffect(() => {
-    setFeatures(getFeatures())
-    setSectionContent(getFeaturesSectionContent())
+    getFeatures().then(setFeatures)
+    getFeaturesSectionContent().then(setSectionContent)
   }, [])
 
   const enabledFeatures = features.filter(f => f.enabled)

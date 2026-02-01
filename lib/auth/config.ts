@@ -1,6 +1,5 @@
 import { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import bcrypt from 'bcryptjs'
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -19,17 +18,7 @@ export const authOptions: NextAuthOptions = {
         const validUsername = process.env.ADMIN_USERNAME
         const validPassword = process.env.ADMIN_PASSWORD
 
-        console.log('Login attempt:', credentials.username)
-        console.log('Valid username:', validUsername)
-        console.log('Password exists:', !!validPassword)
-
-        if (credentials.username !== validUsername) {
-          console.log('Username mismatch')
-          return null
-        }
-
-        if (credentials.password !== validPassword) {
-          console.log('Password mismatch')
+        if (credentials.username !== validUsername || credentials.password !== validPassword) {
           return null
         }
         

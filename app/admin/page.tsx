@@ -176,27 +176,30 @@ export default function AdminPage() {
   }
 
   useEffect(() => {
-    setHeroContent(getHeroContent())
-    setHeaderContent(getHeaderContent())
-    setFooterContent(getFooterContent())
-    setFeatures(getFeatures())
-    setAIFeatures(getAIFeatures())
-    setFAQs(getFAQs())
-    setDownloads(getDownloads())
-    setBenefits(getBenefits())
-    setBenefitsSection(getBenefitsSectionContent())
-    setCTAContent(getCTAContent())
-    setVideoTutorials(getVideoTutorials())
-    setFeaturesSection(getFeaturesSectionContent())
-    setDownloadSection(getDownloadSectionContent())
-    setAISection(getAIFeaturesSectionContent())
-    setHowItWorks(getHowItWorksContent())
-    setTechnicalSpecs(getTechnicalSpecsContent())
-    setInstallation(getInstallationContent())
-    setUserGuide(getUserGuideContent())
-    setAPIDocs(getAPIDocsContent())
-    setCommunity(getCommunityContent())
-    setComparison(getComparisonContent())
+    const loadContent = async () => {
+      setHeroContent(await getHeroContent())
+      setHeaderContent(await getHeaderContent())
+      setFooterContent(await getFooterContent())
+      setFeatures(await getFeatures())
+      setAIFeatures(await getAIFeatures())
+      setFAQs(await getFAQs())
+      setDownloads(await getDownloads())
+      setBenefits(await getBenefits())
+      setBenefitsSection(await getBenefitsSectionContent())
+      setCTAContent(await getCTAContent())
+      setVideoTutorials(await getVideoTutorials())
+      setFeaturesSection(await getFeaturesSectionContent())
+      setDownloadSection(await getDownloadSectionContent())
+      setAISection(await getAIFeaturesSectionContent())
+      setHowItWorks(await getHowItWorksContent())
+      setTechnicalSpecs(await getTechnicalSpecsContent())
+      setInstallation(await getInstallationContent())
+      setUserGuide(await getUserGuideContent())
+      setAPIDocs(await getAPIDocsContent())
+      setCommunity(await getCommunityContent())
+      setComparison(await getComparisonContent())
+    }
+    loadContent()
   }, [])
 
   const showSaved = () => {
@@ -409,30 +412,39 @@ export default function AdminPage() {
                       className="w-full p-3 bg-dark border border-gray-600 rounded-lg text-white focus:border-primary focus:outline-none"
                       placeholder="Link label"
                     />
-                    <input
-                      type="text"
-                      value={nav.href}
-                      onChange={(e) => {
-                        const newNav = [...headerContent.navigation]
-                        newNav[index] = { ...nav, href: e.target.value }
-                        setHeaderContent(prev => ({ ...prev, navigation: newNav }))
-                      }}
-                      className="w-full p-3 bg-dark border border-gray-600 rounded-lg text-white focus:border-primary focus:outline-none"
-                      placeholder="Link URL"
-                    />
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        value={nav.href}
+                        onChange={(e) => {
+                          const newNav = [...headerContent.navigation]
+                          newNav[index] = { ...nav, href: e.target.value }
+                          setHeaderContent(prev => ({ ...prev, navigation: newNav }))
+                        }}
+                        className="flex-1 p-3 bg-dark border border-gray-600 rounded-lg text-white focus:border-primary focus:outline-none"
+                        placeholder="Link URL"
+                      />
+                      <button
+                        onClick={() => {
+                          const newNav = headerContent.navigation.filter((_, i) => i !== index)
+                          setHeaderContent(prev => ({ ...prev, navigation: newNav }))
+                        }}
+                        className="text-red-400 hover:text-red-300 text-sm px-2"
+                      >
+                        Remove
+                      </button>
+                    </div>
                   </div>
                 ))}
                 <button
                   onClick={() => {
-                    if (!headerContent.navigation.find(nav => nav.label === 'AI System')) {
-                      const newNav = [...headerContent.navigation]
-                      newNav.splice(1, 0, { label: 'AI System', href: '#ai-features' })
-                      setHeaderContent(prev => ({ ...prev, navigation: newNav }))
-                    }
+                    const newNav = [...(headerContent.navigation || [])]
+                    newNav.push({ label: '', href: '' })
+                    setHeaderContent(prev => ({ ...prev, navigation: newNav }))
                   }}
                   className="text-primary hover:text-primary-dark text-sm"
                 >
-                  + Add AI System Link
+                  + Add Link
                 </button>
               </div>
               <button onClick={saveHeader} className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-colors ${
@@ -513,7 +525,7 @@ export default function AdminPage() {
                   <button
                     onClick={() => {
                       const newSection = { title: 'New Section', links: [{ name: 'New Link', href: '#' }] }
-                      setFooterContent(prev => ({ ...prev, sections: [...prev.sections, newSection] }))
+                      setFooterContent(prev => ({ ...prev, sections: [...(prev.sections || []), newSection] }))
                     }}
                     className="flex items-center gap-2 bg-primary text-dark px-3 py-1 rounded text-sm hover:bg-primary-dark"
                   >
@@ -1305,7 +1317,7 @@ export default function AdminPage() {
                         details: ['Detail 1', 'Detail 2'],
                         enabled: true
                       }
-                      setHowItWorks(prev => ({ ...prev, steps: [...prev.steps, newStep] }))
+                      setHowItWorks(prev => ({ ...prev, steps: [...(prev.steps || []), newStep] }))
                     }}
                     className="flex items-center gap-2 bg-primary text-dark px-3 py-1 rounded text-sm hover:bg-primary-dark"
                   >
@@ -1442,7 +1454,7 @@ export default function AdminPage() {
                     <Plus size={14} /> Add Inverter
                   </button>
                 </div>
-                {technicalSpecs.supportedInverters.map((inverter, index) => (
+                {technicalSpecs.supportedInverters?.map((inverter, index) => (
                   <div key={inverter.id} className="border border-gray-600 rounded-lg p-4 mb-3">
                     <div className="grid grid-cols-2 gap-3 mb-3">
                       <input
@@ -1633,14 +1645,14 @@ export default function AdminPage() {
                         requirements: ['Requirement 1'],
                         enabled: true
                       }
-                      setInstallation(prev => ({ ...prev, platforms: [...prev.platforms, newPlatform] }))
+                      setInstallation(prev => ({ ...prev, platforms: [...(prev.platforms || []), newPlatform] }))
                     }}
                     className="flex items-center gap-2 bg-primary text-dark px-3 py-1 rounded text-sm hover:bg-primary-dark"
                   >
                     <Plus size={14} /> Add Platform
                   </button>
                 </div>
-                {installation.platforms.map((platform, pIndex) => (
+                {installation.platforms?.map((platform, pIndex) => (
                   <div key={platform.id} className="border border-gray-600 rounded-lg p-4 mb-4">
                     <input
                       type="text"
@@ -1775,14 +1787,14 @@ export default function AdminPage() {
                         label: 'Label',
                         enabled: true
                       }
-                      setInstallation(prev => ({ ...prev, stats: [...prev.stats, newStat] }))
+                      setInstallation(prev => ({ ...prev, stats: [...(prev.stats || []), newStat] }))
                     }}
                     className="flex items-center gap-2 bg-primary text-dark px-3 py-1 rounded text-sm hover:bg-primary-dark"
                   >
                     <Plus size={14} /> Add Stat
                   </button>
                 </div>
-                {installation.stats.map((stat, index) => (
+                {installation.stats?.map((stat, index) => (
                   <div key={stat.id} className="border border-gray-600 rounded-lg p-4 mb-3">
                     <div className="grid grid-cols-2 gap-3 mb-2">
                       <input
@@ -1878,14 +1890,14 @@ export default function AdminPage() {
                         subsections: [{ title: 'Subsection', steps: ['Step 1'] }],
                         enabled: true
                       }
-                      setUserGuide(prev => ({ ...prev, sections: [...prev.sections, newSection] }))
+                      setUserGuide(prev => ({ ...prev, sections: [...(prev.sections || []), newSection] }))
                     }}
                     className="flex items-center gap-2 bg-primary text-dark px-3 py-1 rounded text-sm hover:bg-primary-dark"
                   >
                     <Plus size={14} /> Add Section
                   </button>
                 </div>
-                {userGuide.sections.map((section, sIndex) => (
+                {userGuide.sections?.map((section, sIndex) => (
                   <div key={section.id} className="border border-gray-600 rounded-lg p-4 mb-4">
                     <div className="grid grid-cols-2 gap-3 mb-3">
                       <input
@@ -2051,14 +2063,14 @@ export default function AdminPage() {
                         description: 'Tip description',
                         enabled: true
                       }
-                      setUserGuide(prev => ({ ...prev, proTips: [...prev.proTips, newTip] }))
+                      setUserGuide(prev => ({ ...prev, proTips: [...(prev.proTips || []), newTip] }))
                     }}
                     className="flex items-center gap-2 bg-primary text-dark px-3 py-1 rounded text-sm hover:bg-primary-dark"
                   >
                     <Plus size={14} /> Add Tip
                   </button>
                 </div>
-                {userGuide.proTips.map((tip, tIndex) => (
+                {userGuide.proTips?.map((tip, tIndex) => (
                   <div key={tip.id} className="border border-gray-600 rounded-lg p-4 mb-3">
                     <div className="grid grid-cols-2 gap-3 mb-3">
                       <input
@@ -2175,7 +2187,7 @@ export default function AdminPage() {
                     <Plus size={14} /> Add Endpoint
                   </button>
                 </div>
-                {apiDocs.endpoints.map((endpoint, index) => (
+                {apiDocs.endpoints?.map((endpoint, index) => (
                   <div key={endpoint.id} className="border border-gray-600 rounded-lg p-4 mb-3">
                     <div className="grid grid-cols-3 gap-3 mb-3">
                       <select
@@ -2356,7 +2368,7 @@ export default function AdminPage() {
                     <Plus size={14} /> Add Feature
                   </button>
                 </div>
-                {comparison.features.map((feature, index) => (
+                {comparison.features?.map((feature, index) => (
                   <div key={feature.id} className="border border-gray-600 rounded-lg p-4 mb-3">
                     <input
                       type="text"

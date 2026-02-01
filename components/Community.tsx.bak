@@ -13,12 +13,13 @@ const iconMap: Record<string, any> = {
 }
 
 export default function Community() {
-  const [content, setContent] = useState<CommunityContent>({ title: "", subtitle: "", links: [], ctaTitle: "", ctaSubtitle: "" })
+  const [content, setContent] = useState<CommunityContent>({ title: "", subtitle: "", endpoints: [], tabs: [], links: [], features: [], platforms: [], stats: [], sections: [], proTips: [], techStack: [], systemRequirements: [], supportedInverters: [], architecture: [], networkPorts: [], primaryButton: "", secondaryButton: "", ctaTitle: "", ctaSubtitle: "", bottomTitle: "", bottomSubtitle: "" })
 
   useEffect(() => {
     getCommunityContent().then(setContent)
   }, [])
 
+  if (!content) return null
 
   const enabledLinks = content.links.filter(l => l.enabled)
 

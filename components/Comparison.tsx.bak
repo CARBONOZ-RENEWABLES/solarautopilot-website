@@ -6,12 +6,13 @@ import { useEffect, useState } from 'react'
 import { getComparisonContent, ComparisonContent } from '@/lib/admin'
 
 export default function Comparison() {
-  const [content, setContent] = useState<ComparisonContent>({ title: "", subtitle: "", features: [], bottomTitle: "", bottomSubtitle: "" })
+  const [content, setContent] = useState<ComparisonContent>({ title: "", subtitle: "", endpoints: [], tabs: [], links: [], features: [], platforms: [], stats: [], sections: [], proTips: [], techStack: [], systemRequirements: [], supportedInverters: [], architecture: [], networkPorts: [], primaryButton: "", secondaryButton: "", ctaTitle: "", ctaSubtitle: "", bottomTitle: "", bottomSubtitle: "" })
 
   useEffect(() => {
     getComparisonContent().then(setContent)
   }, [])
 
+  if (!content) return null
 
   const enabledFeatures = content.features.filter(f => f.enabled)
 

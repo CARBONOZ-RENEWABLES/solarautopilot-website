@@ -1,3 +1,5 @@
+import { fetchContent, saveContent } from './storage'
+
 export interface HeroContent {
   title: string
   subtitle: string
@@ -1112,494 +1114,72 @@ const defaultComparison: ComparisonContent = {
   bottomSubtitle: 'The only cross-platform solution that combines advanced AI optimization with zero-configuration setup. Run on any platform - start saving money in minutes, not hours.'
 }
 
-export const getHeroContent = (): HeroContent => {
-  if (typeof window === 'undefined') return defaultHeroContent
-  const stored = localStorage.getItem('hero-content')
-  return stored ? JSON.parse(stored) : defaultHeroContent
-}
-
-export const saveHeroContent = (content: HeroContent): void => {
-  if (typeof window === 'undefined') return
-  localStorage.setItem('hero-content', JSON.stringify(content))
-}
-
-export const getHeaderContent = (): HeaderContent => {
-  if (typeof window === 'undefined') return defaultHeaderContent
-  const stored = localStorage.getItem('header-content')
-  return stored ? JSON.parse(stored) : defaultHeaderContent
-}
-
-export const saveHeaderContent = (content: HeaderContent): void => {
-  if (typeof window === 'undefined') return
-  localStorage.setItem('header-content', JSON.stringify(content))
-}
-
-export const getFooterContent = (): FooterContent => {
-  if (typeof window === 'undefined') return defaultFooterContent
-  const stored = localStorage.getItem('footer-content')
-  return stored ? JSON.parse(stored) : defaultFooterContent
-}
-
-export const saveFooterContent = (content: FooterContent): void => {
-  if (typeof window === 'undefined') return
-  localStorage.setItem('footer-content', JSON.stringify(content))
-}
-
-export const getFeatures = (): Feature[] => {
-  if (typeof window === 'undefined') return defaultFeatures
-  const stored = localStorage.getItem('features-content')
-  return stored ? JSON.parse(stored) : defaultFeatures
-}
-
-export const saveFeatures = (features: Feature[]): void => {
-  if (typeof window === 'undefined') return
-  localStorage.setItem('features-content', JSON.stringify(features))
-}
-
-export const getAIFeatures = (): AIFeature[] => {
-  if (typeof window === 'undefined') return defaultAIFeatures
-  const stored = localStorage.getItem('ai-features-content')
-  return stored ? JSON.parse(stored) : defaultAIFeatures
-}
-
-export const saveAIFeatures = (features: AIFeature[]): void => {
-  if (typeof window === 'undefined') return
-  localStorage.setItem('ai-features-content', JSON.stringify(features))
-}
-
-export const getFAQs = (): FAQ[] => {
-  if (typeof window === 'undefined') return defaultFAQs
-  const stored = localStorage.getItem('faqs-content')
-  return stored ? JSON.parse(stored) : defaultFAQs
-}
-
-export const saveFAQs = (faqs: FAQ[]): void => {
-  if (typeof window === 'undefined') return
-  localStorage.setItem('faqs-content', JSON.stringify(faqs))
-}
-
-export const getDownloads = (): DownloadItem[] => {
-  if (typeof window === 'undefined') return defaultDownloads
-  const stored = localStorage.getItem('downloads-content')
-  return stored ? JSON.parse(stored) : defaultDownloads
-}
-
-export const saveDownloads = (downloads: DownloadItem[]): void => {
-  if (typeof window === 'undefined') return
-  localStorage.setItem('downloads-content', JSON.stringify(downloads))
-}
-
-export const getBenefits = (): Benefit[] => {
-  if (typeof window === 'undefined') return defaultBenefits
-  const stored = localStorage.getItem('benefits-content')
-  return stored ? JSON.parse(stored) : defaultBenefits
-}
-
-export const saveBenefits = (benefits: Benefit[]): void => {
-  if (typeof window === 'undefined') return
-  localStorage.setItem('benefits-content', JSON.stringify(benefits))
-}
-
-export const getCTAContent = (): CTAContent => {
-  if (typeof window === 'undefined') return defaultCTA
-  const stored = localStorage.getItem('cta-content')
-  return stored ? JSON.parse(stored) : defaultCTA
-}
-
-export const saveCTAContent = (content: CTAContent): void => {
-  if (typeof window === 'undefined') return
-  localStorage.setItem('cta-content', JSON.stringify(content))
-}
-
-export const getVideoTutorials = (): VideoTutorial[] => {
-  if (typeof window === 'undefined') return defaultVideoTutorials
-  const stored = localStorage.getItem('video-tutorials-content')
-  return stored ? JSON.parse(stored) : defaultVideoTutorials
-}
-
-export const saveVideoTutorials = (tutorials: VideoTutorial[]): void => {
-  if (typeof window === 'undefined') return
-  localStorage.setItem('video-tutorials-content', JSON.stringify(tutorials))
-}
-
-export const getDownloadSectionContent = (): DownloadSectionContent => {
-  if (typeof window === 'undefined') return defaultDownloadSection
-  const stored = localStorage.getItem('download-section-content')
-  const content = stored ? JSON.parse(stored) : defaultDownloadSection
-  
-  // Ensure SolarAutopilot has primary color styling
-  if (content.title && !content.title.includes('text-primary')) {
-    content.title = content.title.replace(/SolarAutopilot/g, '<span class="text-primary">SolarAutopilot</span>')
-  }
-  
-  return content
-}
-
-export const saveDownloadSectionContent = (content: DownloadSectionContent): void => {
-  if (typeof window === 'undefined') return
-  localStorage.setItem('download-section-content', JSON.stringify(content))
-}
-
-export const getFeaturesSectionContent = (): FeaturesSectionContent => {
-  if (typeof window === 'undefined') return defaultFeaturesSection
-  const stored = localStorage.getItem('features-section-content')
-  const content = stored ? JSON.parse(stored) : defaultFeaturesSection
-  
-  // Ensure SolarAutopilot has primary color styling
-  if (content.title && !content.title.includes('text-primary')) {
-    content.title = content.title.replace(/SolarAutopilot/g, '<span class="text-primary">SolarAutopilot</span>')
-  }
-  
-  return content
-}
-
-export const saveFeaturesSectionContent = (content: FeaturesSectionContent): void => {
-  if (typeof window === 'undefined') return
-  localStorage.setItem('features-section-content', JSON.stringify(content))
-}
-
-export const getAIFeaturesSectionContent = (): AIFeaturesSectionContent => {
-  if (typeof window === 'undefined') return defaultAIFeaturesSection
-  const stored = localStorage.getItem('ai-features-section-content')
-  return stored ? JSON.parse(stored) : defaultAIFeaturesSection
-}
-
-export const saveAIFeaturesSectionContent = (content: AIFeaturesSectionContent): void => {
-  if (typeof window === 'undefined') return
-  localStorage.setItem('ai-features-section-content', JSON.stringify(content))
-}
-
-export const getBenefitsSectionContent = (): BenefitsSectionContent => {
-  if (typeof window === 'undefined') return defaultBenefitsSection
-  const stored = localStorage.getItem('benefits-section-content')
-  return stored ? JSON.parse(stored) : defaultBenefitsSection
-}
-
-export const saveBenefitsSectionContent = (content: BenefitsSectionContent): void => {
-  if (typeof window === 'undefined') return
-  localStorage.setItem('benefits-section-content', JSON.stringify(content))
-}
-
-export const getHowItWorksContent = (): HowItWorksContent => {
-  if (typeof window === 'undefined') return defaultHowItWorks
-  const stored = localStorage.getItem('how-it-works-content')
-  return stored ? JSON.parse(stored) : defaultHowItWorks
-}
-
-export const saveHowItWorksContent = (content: HowItWorksContent): void => {
-  if (typeof window === 'undefined') return
-  localStorage.setItem('how-it-works-content', JSON.stringify(content))
-}
-
-export const getTechnicalSpecsContent = (): TechnicalSpecsContent => {
-  if (typeof window === 'undefined') return defaultTechnicalSpecs
-  const stored = localStorage.getItem('technical-specs-content')
-  return stored ? JSON.parse(stored) : defaultTechnicalSpecs
-}
-
-export const saveTechnicalSpecsContent = (content: TechnicalSpecsContent): void => {
-  if (typeof window === 'undefined') return
-  localStorage.setItem('technical-specs-content', JSON.stringify(content))
-}
-
-export const getInstallationContent = (): InstallationContent => {
-  if (typeof window === 'undefined') return defaultInstallation
-  const stored = localStorage.getItem('installation-content')
-  return stored ? JSON.parse(stored) : defaultInstallation
-}
-
-export const saveInstallationContent = (content: InstallationContent): void => {
-  if (typeof window === 'undefined') return
-  localStorage.setItem('installation-content', JSON.stringify(content))
-}
-
-export const getAPIDocsContent = (): APIDocsContent => {
-  if (typeof window === 'undefined') return defaultAPIDocs
-  const stored = localStorage.getItem('api-docs-content')
-  return stored ? JSON.parse(stored) : defaultAPIDocs
-}
-
-export const saveAPIDocsContent = (content: APIDocsContent): void => {
-  if (typeof window === 'undefined') return
-  localStorage.setItem('api-docs-content', JSON.stringify(content))
-}
-
-export const getCommunityContent = (): CommunityContent => {
-  if (typeof window === 'undefined') return defaultCommunity
-  const stored = localStorage.getItem('community-content')
-  return stored ? JSON.parse(stored) : defaultCommunity
-}
-
-export const saveCommunityContent = (content: CommunityContent): void => {
-  if (typeof window === 'undefined') return
-  localStorage.setItem('community-content', JSON.stringify(content))
-}
-
-export const getComparisonContent = (): ComparisonContent => {
-  if (typeof window === 'undefined') return defaultComparison
-  const stored = localStorage.getItem('comparison-content')
-  return stored ? JSON.parse(stored) : defaultComparison
-}
-
-export const saveComparisonContent = (content: ComparisonContent): void => {
-  if (typeof window === 'undefined') return
-  localStorage.setItem('comparison-content', JSON.stringify(content))
-}
-
-
 const defaultUserGuide: UserGuideContent = {
   title: 'Complete <span class="text-primary">User Guide</span>',
   subtitle: 'Step-by-step instructions to get the most out of SolarAutopilot',
-  sections: [
-    {
-      id: '1',
-      title: 'Getting Started',
-      description: 'Complete setup guide from installation to first optimization',
-      icon: 'rocket',
-      subsections: [
-        {
-          title: 'Installation',
-          steps: [
-            'Choose your platform (Home Assistant, Docker, Desktop)',
-            'Follow platform-specific installation instructions',
-            'Access the web interface at http://localhost:6789',
-            'Complete the initial setup wizard'
-          ]
-        },
-        {
-          title: 'Initial Configuration',
-          steps: [
-            'Configure MQTT broker connection',
-            'Set up inverter communication (Modbus/Serial)',
-            'Connect to InfluxDB for data storage',
-            'Configure battery and inverter parameters'
-          ]
-        }
-      ],
-      enabled: true
-    },
-    {
-      id: '2',
-      title: 'System Configuration',
-      description: 'Configure your solar system parameters and preferences',
-      icon: 'settings',
-      subsections: [
-        {
-          title: 'Inverter Setup',
-          steps: [
-            'Select your inverter brand (Deye, Sunsynk, Growatt, etc.)',
-            'Configure communication protocol (Modbus TCP/RTU)',
-            'Set inverter IP address or serial port',
-            'Test connection and verify data flow'
-          ]
-        },
-        {
-          title: 'Battery Configuration',
-          steps: [
-            'Enter battery capacity (kWh)',
-            'Set SOC limits (min 20%, max 100%)',
-            'Configure charge/discharge rates',
-            'Enable battery health monitoring'
-          ]
-        }
-      ],
-      enabled: true
-    },
-    {
-      id: '3',
-      title: 'Tibber Integration',
-      description: 'Connect to Tibber for dynamic electricity pricing',
-      icon: 'zap',
-      subsections: [
-        {
-          title: 'API Setup',
-          steps: [
-            'Create Tibber account at tibber.com',
-            'Generate API token from developer portal',
-            'Enter API token in SolarAutopilot settings',
-            'Verify price data is being received'
-          ]
-        },
-        {
-          title: 'Price Optimization',
-          steps: [
-            'Set charging price threshold (recommended ≤8¢/kWh)',
-            'Configure maximum price limit',
-            'Enable dynamic pricing optimization',
-            'Monitor cost savings in dashboard'
-          ]
-        }
-      ],
-      enabled: true
-    },
-    {
-      id: '4',
-      title: 'AI System Setup',
-      description: 'Enable and configure AI-powered optimization',
-      icon: 'brain',
-      subsections: [
-        {
-          title: 'Training Data',
-          steps: [
-            'Ensure 30+ days of historical data in InfluxDB',
-            'Verify PV power and load data completeness',
-            'Check data quality metrics (>80% coverage)',
-            'Wait for initial AI training (24-48 hours)'
-          ]
-        },
-        {
-          title: 'AI Configuration',
-          steps: [
-            'Enable AI optimization in settings',
-            'Set learning rate and confidence thresholds',
-            'Configure prediction horizons (24-48 hours)',
-            'Monitor AI performance metrics'
-          ]
-        }
-      ],
-      enabled: true
-    },
-    {
-      id: '5',
-      title: 'Data Management',
-      description: 'Configure data storage and retention policies',
-      icon: 'database',
-      subsections: [
-        {
-          title: 'InfluxDB Setup',
-          steps: [
-            'InfluxDB is included and auto-configured',
-            'Access InfluxDB UI at http://localhost:8086',
-            'Configure data retention policies',
-            'Set up automatic data cleanup (optional)'
-          ]
-        },
-        {
-          title: 'Grafana Integration',
-          steps: [
-            'Grafana provisioning is automatic',
-            'Access dashboards via web interface',
-            'Customize dashboard layouts',
-            'Create custom queries and visualizations'
-          ]
-        }
-      ],
-      enabled: true
-    },
-    {
-      id: '6',
-      title: 'Notifications & Alerts',
-      description: 'Set up alerts for important system events',
-      icon: 'bell',
-      subsections: [
-        {
-          title: 'Telegram Notifications',
-          steps: [
-            'Create Telegram bot via @BotFather',
-            'Get bot token and chat ID',
-            'Configure in notification settings',
-            'Test notification delivery'
-          ]
-        },
-        {
-          title: 'Alert Rules',
-          steps: [
-            'Create custom alert rules (SOC, power, price)',
-            'Set threshold values and conditions',
-            'Choose notification channels',
-            'Configure alert frequency and cooldown'
-          ]
-        }
-      ],
-      enabled: true
-    },
-    {
-      id: '7',
-      title: 'Optimization Strategies',
-      description: 'Understand and configure charging strategies',
-      icon: 'target',
-      subsections: [
-        {
-          title: 'Battery Size Strategies',
-          steps: [
-            'Small (≤15kWh): Price-sensitive charging',
-            'Medium (15-20kWh): Hybrid approach',
-            'Large (>20kWh): Self-consumption focus',
-            'System auto-detects optimal strategy'
-          ]
-        },
-        {
-          title: 'Performance Tuning',
-          steps: [
-            'Monitor AI prediction accuracy (target >85%)',
-            'Review cost savings reports',
-            'Adjust price thresholds based on results',
-            'Fine-tune learning parameters if needed'
-          ]
-        }
-      ],
-      enabled: true
-    },
-    {
-      id: '8',
-      title: 'Security & Backup',
-      description: 'Secure your installation and backup data',
-      icon: 'shield',
-      subsections: [
-        {
-          title: 'Security Setup',
-          steps: [
-            'Enable authentication for web interface',
-            'Configure SSL/TLS certificates',
-            'Set up firewall rules',
-            'Use strong passwords for all services'
-          ]
-        },
-        {
-          title: 'Backup & Recovery',
-          steps: [
-            'Configure automatic backups',
-            'Export configuration files',
-            'Backup InfluxDB data regularly',
-            'Test restore procedures'
-          ]
-        }
-      ],
-      enabled: true
-    }
-  ],
-  proTips: [
-    {
-      id: '1',
-      icon: 'bar-chart',
-      title: 'Data Quality',
-      description: 'Ensure at least 30 days of clean historical data for optimal AI performance. Check data completeness regularly.',
-      enabled: true
-    },
-    {
-      id: '2',
-      icon: 'zap',
-      title: 'Price Thresholds',
-      description: 'Academic research shows optimal charging at ≤8¢/kWh. Adjust based on your local electricity rates.',
-      enabled: true
-    },
-    {
-      id: '3',
-      icon: 'battery',
-      title: 'Battery Health',
-      description: 'Keep SOC between 20-80% for daily use. Full charges occasionally help battery calibration.',
-      enabled: true
-    }
-  ]
+  sections: [],
+  proTips: []
 }
 
-export const getUserGuideContent = (): UserGuideContent => {
-  if (typeof window === 'undefined') return defaultUserGuide
-  const stored = localStorage.getItem('user-guide-content')
-  return stored ? JSON.parse(stored) : defaultUserGuide
-}
+export const getHeroContent = () => fetchContent('hero', defaultHeroContent)
+export const saveHeroContent = (content: HeroContent) => saveContent('hero', content)
 
-export const saveUserGuideContent = (content: UserGuideContent): void => {
-  if (typeof window === 'undefined') return
-  localStorage.setItem('user-guide-content', JSON.stringify(content))
-}
+export const getHeaderContent = () => fetchContent('header', defaultHeaderContent)
+export const saveHeaderContent = (content: HeaderContent) => saveContent('header', content)
+
+export const getFooterContent = () => fetchContent('footer', defaultFooterContent)
+export const saveFooterContent = (content: FooterContent) => saveContent('footer', content)
+
+export const getFeatures = () => fetchContent('features', defaultFeatures)
+export const saveFeatures = (features: Feature[]) => saveContent('features', features)
+
+export const getAIFeatures = () => fetchContent('ai-features', defaultAIFeatures)
+export const saveAIFeatures = (features: AIFeature[]) => saveContent('ai-features', features)
+
+export const getFAQs = () => fetchContent('faqs', defaultFAQs)
+export const saveFAQs = (faqs: FAQ[]) => saveContent('faqs', faqs)
+
+export const getDownloads = () => fetchContent('downloads', defaultDownloads)
+export const saveDownloads = (downloads: DownloadItem[]) => saveContent('downloads', downloads)
+
+export const getBenefits = () => fetchContent('benefits', defaultBenefits)
+export const saveBenefits = (benefits: Benefit[]) => saveContent('benefits', benefits)
+
+export const getCTAContent = () => fetchContent('cta', defaultCTA)
+export const saveCTAContent = (content: CTAContent) => saveContent('cta', content)
+
+export const getVideoTutorials = () => fetchContent('video-tutorials', defaultVideoTutorials)
+export const saveVideoTutorials = (tutorials: VideoTutorial[]) => saveContent('video-tutorials', tutorials)
+
+export const getDownloadSectionContent = () => fetchContent('download-section', defaultDownloadSection)
+export const saveDownloadSectionContent = (content: DownloadSectionContent) => saveContent('download-section', content)
+
+export const getFeaturesSectionContent = () => fetchContent('features-section', defaultFeaturesSection)
+export const saveFeaturesSectionContent = (content: FeaturesSectionContent) => saveContent('features-section', content)
+
+export const getAIFeaturesSectionContent = () => fetchContent('ai-features-section', defaultAIFeaturesSection)
+export const saveAIFeaturesSectionContent = (content: AIFeaturesSectionContent) => saveContent('ai-features-section', content)
+
+export const getBenefitsSectionContent = () => fetchContent('benefits-section', defaultBenefitsSection)
+export const saveBenefitsSectionContent = (content: BenefitsSectionContent) => saveContent('benefits-section', content)
+
+export const getHowItWorksContent = () => fetchContent('how-it-works', defaultHowItWorks)
+export const saveHowItWorksContent = (content: HowItWorksContent) => saveContent('how-it-works', content)
+
+export const getTechnicalSpecsContent = () => fetchContent('technical-specs', defaultTechnicalSpecs)
+export const saveTechnicalSpecsContent = (content: TechnicalSpecsContent) => saveContent('technical-specs', content)
+
+export const getInstallationContent = () => fetchContent('installation', defaultInstallation)
+export const saveInstallationContent = (content: InstallationContent) => saveContent('installation', content)
+
+export const getAPIDocsContent = () => fetchContent('api-docs', defaultAPIDocs)
+export const saveAPIDocsContent = (content: APIDocsContent) => saveContent('api-docs', content)
+
+export const getCommunityContent = () => fetchContent('community', defaultCommunity)
+export const saveCommunityContent = (content: CommunityContent) => saveContent('community', content)
+
+export const getComparisonContent = () => fetchContent('comparison', defaultComparison)
+export const saveComparisonContent = (content: ComparisonContent) => saveContent('comparison', content)
+
+export const getUserGuideContent = () => fetchContent('user-guide', defaultUserGuide)
+export const saveUserGuideContent = (content: UserGuideContent) => saveContent('user-guide', content)

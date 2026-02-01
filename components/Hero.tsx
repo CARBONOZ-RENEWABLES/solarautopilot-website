@@ -15,7 +15,7 @@ export default function Hero() {
   })
 
   useEffect(() => {
-    setContent(getHeroContent())
+    getHeroContent().then(setContent)
   }, [])
 
   return (

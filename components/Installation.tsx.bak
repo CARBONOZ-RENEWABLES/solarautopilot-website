@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
-import { Monitor, Apple, HardDrive, Container, Server, CheckCircle, Download, ArrowRight, Copy, Check } from 'lucide-react'
+import { Monitor, Apple, HardDrive, Container, Server, CheckCircle, Download, ArrowRight } from 'lucide-react'
 import { getInstallationContent, InstallationContent } from '@/lib/admin'
 
 const iconMap: Record<string, any> = {
@@ -14,25 +14,17 @@ const iconMap: Record<string, any> = {
 }
 
 export default function Installation() {
-  const [content, setContent] = useState<InstallationContent>({ title: "", subtitle: "", platforms: [], stats: [] })
+  const [content, setContent] = useState<InstallationContent>({ title: "", subtitle: "", endpoints: [], tabs: [], links: [], features: [], platforms: [], stats: [], sections: [], proTips: [], techStack: [], systemRequirements: [], supportedInverters: [], architecture: [], networkPorts: [], primaryButton: "", secondaryButton: "", ctaTitle: "", ctaSubtitle: "", bottomTitle: "", bottomSubtitle: "" })
   const [selectedPlatform, setSelectedPlatform] = useState<number>(0)
-  const [copiedIndex, setCopiedIndex] = useState<number | null>(null)
 
   useEffect(() => {
     getInstallationContent().then(setContent)
   }, [])
 
-  const copyToClipboard = (text: string, index: number) => {
-    navigator.clipboard.writeText(text)
-    setCopiedIndex(index)
-    setTimeout(() => setCopiedIndex(null), 2000)
-  }
+  if (!content) return null
 
-
-  const enabledPlatforms = content.platforms?.filter(p => p.enabled) || []
-  const enabledStats = content.stats?.filter(s => s.enabled) || []
-
-  if (enabledPlatforms.length === 0) return null
+  const enabledPlatforms = content.platforms.filter(p => p.enabled)
+  const enabledStats = content.stats.filter(s => s.enabled)
 
   return (
     <section className="section-padding bg-dark relative overflow-hidden">
@@ -143,27 +135,15 @@ export default function Installation() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: stepIndex * 0.1 }}
-                    className="group"
+                    className="flex items-start gap-4 p-4 rounded-xl bg-dark-secondary/50 hover:bg-dark-secondary transition-colors group"
                   >
-                    <div className="flex items-start gap-4 p-4 rounded-xl bg-dark-secondary/50 hover:bg-dark-secondary transition-colors">
-                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center shadow-lg">
-                        <span className="text-dark text-sm font-bold">{stepIndex + 1}</span>
-                      </div>
-                      <div className="flex-1">
-                        <p className="body-base text-white leading-relaxed">{step}</p>
-                      </div>
-                      <button
-                        onClick={() => copyToClipboard(step, stepIndex)}
-                        className="flex-shrink-0 p-2 rounded-lg bg-dark-tertiary hover:bg-primary/20 transition-colors"
-                        title="Copy step"
-                      >
-                        {copiedIndex === stepIndex ? (
-                          <Check className="w-4 h-4 text-primary" />
-                        ) : (
-                          <Copy className="w-4 h-4 text-text-secondary group-hover:text-primary transition-colors" />
-                        )}
-                      </button>
+                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center shadow-lg">
+                      <span className="text-dark text-sm font-bold">{stepIndex + 1}</span>
                     </div>
+                    <div className="flex-1">
+                      <p className="body-base text-white leading-relaxed">{step}</p>
+                    </div>
+                    <ArrowRight className="w-5 h-5 text-primary opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
                   </motion.div>
                 ))}
               </div>

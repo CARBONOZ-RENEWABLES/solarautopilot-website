@@ -1,7 +1,8 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { Github, MessageCircle, Twitter, Youtube, Mail, ExternalLink } from 'lucide-react'
-import { getFooterContent } from '../lib/admin'
+import { getFooterContent, FooterContent } from '../lib/admin'
 
 const iconMap = {
   Github,
@@ -13,7 +14,14 @@ const iconMap = {
 }
 
 export default function Footer() {
-  const footerConfig = getFooterContent()
+  const [footerConfig, setFooterConfig] = useState<FooterContent>({
+    companyName: '', logo: '', description: '', sections: [], socialLinks: [],
+    copyright: '', statusText: '', showStatus: false, madeByText: ''
+  })
+
+  useEffect(() => {
+    getFooterContent().then(setFooterConfig)
+  }, [])
 
   return (
     <footer className="bg-dark-secondary border-t border-gray-800">

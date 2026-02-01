@@ -17,12 +17,13 @@ const iconMap: Record<string, any> = {
 }
 
 export default function TechnicalSpecs() {
-  const [content, setContent] = useState<TechnicalSpecsContent>({ title: "", subtitle: "", techStack: [], systemRequirements: [], supportedInverters: [], architecture: [], networkPorts: [] })
+  const [content, setContent] = useState<TechnicalSpecsContent>({ title: "", subtitle: "", endpoints: [], tabs: [], links: [], features: [], platforms: [], stats: [], sections: [], proTips: [], techStack: [], systemRequirements: [], supportedInverters: [], architecture: [], networkPorts: [], primaryButton: "", secondaryButton: "", ctaTitle: "", ctaSubtitle: "", bottomTitle: "", bottomSubtitle: "" })
 
   useEffect(() => {
     getTechnicalSpecsContent().then(setContent)
   }, [])
 
+  if (!content) return null
 
   const enabledTechStack = content.techStack.filter(stack => stack.enabled)
   const enabledInverters = content.supportedInverters.filter(inv => inv.enabled)

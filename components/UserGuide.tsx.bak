@@ -19,12 +19,13 @@ const iconMap: Record<string, any> = {
 }
 
 export default function UserGuide() {
-  const [content, setContent] = useState<UserGuideContent>({ title: "", subtitle: "", sections: [], proTips: [] })
+  const [content, setContent] = useState<UserGuideContent>({ title: "", subtitle: "", endpoints: [], tabs: [], links: [], features: [], platforms: [], stats: [], sections: [], proTips: [], techStack: [], systemRequirements: [], supportedInverters: [], architecture: [], networkPorts: [], primaryButton: "", secondaryButton: "", ctaTitle: "", ctaSubtitle: "", bottomTitle: "", bottomSubtitle: "" })
 
   useEffect(() => {
     getUserGuideContent().then(setContent)
   }, [])
 
+  if (!content) return null
 
   const enabledSections = content.sections.filter(s => s.enabled)
   const enabledTips = content.proTips.filter(t => t.enabled)

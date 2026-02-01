@@ -39,5 +39,19 @@
       "label": "Powered",
       "enabled": true
     }
+  ],
+  "subtitle": "Step-by-step instructions for installing SolarAutopilot on your preferred platform.",
+  "platforms": [
+    {
+      "id": "1769965714858",
+      "name": "New Platform",
+      "steps": [
+        "Step 1"
+      ],
+      "requirements": [
+        "New requirement"
+      ],
+      "enabled": true
+    }
   ]
 }

@@ -5,12 +5,13 @@ import { useEffect, useState } from 'react'
 import { getAPIDocsContent, APIDocsContent } from '@/lib/admin'
 
 export default function APIDocs() {
-  const [content, setContent] = useState<APIDocsContent>({ title: "", subtitle: "", tabs: [], endpoints: [] })
+  const [content, setContent] = useState<APIDocsContent>({ title: "", subtitle: "", endpoints: [], tabs: [], links: [], features: [], platforms: [], stats: [], sections: [], proTips: [], techStack: [], systemRequirements: [], supportedInverters: [], architecture: [], networkPorts: [], primaryButton: "", secondaryButton: "", ctaTitle: "", ctaSubtitle: "", bottomTitle: "", bottomSubtitle: "" })
 
   useEffect(() => {
     getAPIDocsContent().then(setContent)
   }, [])
 
+  if (!content) return null
 
   const enabledEndpoints = content.endpoints.filter(e => e.enabled)
 

@@ -11,8 +11,8 @@ export default function BenefitsSection() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
   useEffect(() => {
-    setBenefits(getBenefits())
-    setSectionContent(getBenefitsSectionContent())
+    getBenefits().then(setBenefits)
+    getBenefitsSectionContent().then(setSectionContent)
   }, [])
 
   const enabledBenefits = benefits.filter(b => b.enabled)

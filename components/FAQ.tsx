@@ -1,13 +1,17 @@
 'use client'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Plus, Minus, Search, HelpCircle } from 'lucide-react'
-import { useState } from 'react'
-import { getFAQs } from '@/lib/admin'
+import { useState, useEffect } from 'react'
+import { getFAQs, FAQ as FAQType } from '@/lib/admin'
 
 export default function FAQ() {
-  const faqs = getFAQs().filter(f => f.enabled)
+  const [faqs, setFaqs] = useState<FAQType[]>([])
   const [openIndex, setOpenIndex] = useState<number | null>(0)
   const [searchTerm, setSearchTerm] = useState('')
+
+  useEffect(() => {
+    getFAQs().then(data => setFaqs(data.filter(f => f.enabled)))
+  }, [])
 
   const filteredFaqs = faqs.filter(faq => 
     faq.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
