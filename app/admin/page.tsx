@@ -270,7 +270,7 @@ export default function AdminPage() {
             <a href="/" className="flex items-center gap-2 text-text-secondary hover:text-white transition-colors">
               <Eye size={20} /> View Site
             </a>
-            <button onClick={() => router.push('/api/auth/signout')} className="text-text-secondary hover:text-white transition-colors">
+            <button onClick={() => router.push('/api/auth/signout')} style={{ backgroundColor: '#DEAF0B' }} className="hover:bg-primary-dark text-dark px-4 py-2 rounded-lg font-medium transition-colors">
               Sign Out
             </button>
           </div>
