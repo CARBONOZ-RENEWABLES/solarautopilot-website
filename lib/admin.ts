@@ -133,10 +133,13 @@ export interface PricingTier {
   id: string
   name: string
   price: string
+  period?: string
   description: string
   features: string[]
   highlighted: boolean
   enabled: boolean
+  buttonText: string
+  buttonLink: string
 }
 
 export interface DownloadSectionContent {
@@ -339,6 +342,7 @@ const defaultHeaderContent: HeaderContent = {
   navigation: [
     { label: 'Features', href: '/#features' },
     { label: 'AI System', href: '/#ai-features' },
+    { label: 'Pricing', href: '/pricing' },
     { label: 'API', href: '/#api' },
     { label: 'Download', href: '/#download' }
   ]
@@ -1183,3 +1187,6 @@ export const saveComparisonContent = (content: ComparisonContent) => saveContent
 
 export const getUserGuideContent = () => fetchContent('user-guide', defaultUserGuide)
 export const saveUserGuideContent = (content: UserGuideContent) => saveContent('user-guide', content)
+
+export const getPricingTiers = () => fetchContent('pricing', [])
+export const savePricingTiers = (tiers: PricingTier[]) => saveContent('pricing', tiers)

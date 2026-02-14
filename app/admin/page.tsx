@@ -7,7 +7,7 @@ import { Eye } from 'lucide-react'
 import { useState } from 'react'
 import { Save, Plus, Trash2, Edit2, Upload } from 'lucide-react'
 import { 
-  HeroContent, HeaderContent, FooterContent, Feature, AIFeature, FAQ, DownloadItem, Benefit, CTAContent, VideoTutorial, FeaturesSectionContent, DownloadSectionContent, AIFeaturesSectionContent, BenefitsSectionContent, HowItWorksContent, TechnicalSpecsContent, InstallationContent, APIDocsContent, CommunityContent, ComparisonContent, UserGuideContent,
+  HeroContent, HeaderContent, FooterContent, Feature, AIFeature, FAQ, DownloadItem, Benefit, CTAContent, VideoTutorial, FeaturesSectionContent, DownloadSectionContent, AIFeaturesSectionContent, BenefitsSectionContent, HowItWorksContent, TechnicalSpecsContent, InstallationContent, APIDocsContent, CommunityContent, ComparisonContent, UserGuideContent, PricingTier,
   getHeroContent, saveHeroContent,
   getHeaderContent, saveHeaderContent,
   getFooterContent, saveFooterContent,
@@ -28,7 +28,8 @@ import {
   getAPIDocsContent, saveAPIDocsContent,
   getCommunityContent, saveCommunityContent,
   getComparisonContent, saveComparisonContent,
-  getUserGuideContent, saveUserGuideContent
+  getUserGuideContent, saveUserGuideContent,
+  getPricingTiers, savePricingTiers
 } from '@/lib/admin'
 
 export default function AdminPage() {
@@ -92,6 +93,7 @@ export default function AdminPage() {
   const [blogPosts, setBlogPosts] = useState([])
   const [changelogs, setChangelogs] = useState([])
   const [roadmaps, setRoadmaps] = useState([])
+  const [pricingTiers, setPricingTiers] = useState<PricingTier[]>([])
   const [uploading, setUploading] = useState(false)
   const [editingBlog, setEditingBlog] = useState<any>(null)
   const [editingChangelog, setEditingChangelog] = useState<any>(null)
@@ -198,6 +200,7 @@ export default function AdminPage() {
       setAPIDocs(await getAPIDocsContent())
       setCommunity(await getCommunityContent())
       setComparison(await getComparisonContent())
+      setPricingTiers(await getPricingTiers())
     }
     loadContent()
   }, [])
@@ -296,7 +299,8 @@ export default function AdminPage() {
             {id: 'dbDownloads', label: 'File Manager'},
             {id: 'blog', label: 'Blog'},
             {id: 'changelog', label: 'Changelog'},
-            {id: 'roadmap', label: 'Roadmap'}
+            {id: 'roadmap', label: 'Roadmap'},
+            {id: 'pricing', label: 'Pricing'}
           ].map(tab => (
             <button
               key={tab.id}
@@ -2918,7 +2922,7 @@ export default function AdminPage() {
             <div className="space-y-6">
               {videoTutorials.map((tutorial) => (
                 <div key={tutorial.id} className="border border-gray-600 rounded-lg p-4">
-                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <input
                       type="text"
                       value={tutorial.title}
@@ -2933,12 +2937,22 @@ export default function AdminPage() {
                       className="w-full p-3 bg-dark border border-gray-600 rounded-lg text-white focus:border-primary focus:outline-none"
                       placeholder="Duration (e.g., 5:32)"
                     />
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                     <input
                       type="text"
                       value={tutorial.videoId}
                       onChange={(e) => setVideoTutorials(videoTutorials.map(t => t.id === tutorial.id ? { ...t, videoId: e.target.value } : t))}
                       className="w-full p-3 bg-dark border border-gray-600 rounded-lg text-white focus:border-primary focus:outline-none"
                       placeholder="YouTube Video ID"
+                    />
+                    <input
+                      type="number"
+                      value={tutorial.startTime}
+                      onChange={(e) => setVideoTutorials(videoTutorials.map(t => t.id === tutorial.id ? { ...t, startTime: parseInt(e.target.value) } : t))}
+                      className="w-full p-3 bg-dark border border-gray-600 rounded-lg text-white focus:border-primary focus:outline-none"
+                      placeholder="Start time (seconds)"
+                      min="0"
                     />
                     <input
                       type="number"
@@ -3024,6 +3038,123 @@ export default function AdminPage() {
                 saved ? 'bg-green-600 text-white' : 'bg-primary text-dark hover:bg-primary-dark'
               }`}>
                 <Save size={18} /> {saved ? 'Saved!' : 'Save CTA'}
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Pricing Tab */}
+        {activeTab === 'pricing' && (
+          <div className="bg-dark-secondary rounded-lg p-6">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-xl font-semibold text-primary">Pricing Tiers</h2>
+              <button onClick={() => {
+                const newTier: PricingTier = {
+                  id: Date.now().toString(),
+                  name: 'New Plan',
+                  price: '$0',
+                  description: 'Plan description',
+                  features: ['Feature 1', 'Feature 2'],
+                  highlighted: false,
+                  enabled: true,
+                  buttonText: 'Get Started',
+                  buttonLink: '/contact'
+                }
+                setPricingTiers([...pricingTiers, newTier])
+              }} className="flex items-center gap-2 bg-primary text-dark px-4 py-2 rounded-lg hover:bg-primary-dark">
+                <Plus size={18} /> Add Tier
+              </button>
+            </div>
+            <div className="space-y-6">
+              {pricingTiers.map((tier) => (
+                <div key={tier.id} className="border border-gray-600 rounded-lg p-4">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    <input
+                      type="text"
+                      value={tier.name}
+                      onChange={(e) => setPricingTiers(pricingTiers.map(t => t.id === tier.id ? { ...t, name: e.target.value } : t))}
+                      className="w-full p-3 bg-dark border border-gray-600 rounded-lg text-white focus:border-primary focus:outline-none"
+                      placeholder="Plan name"
+                    />
+                    <input
+                      type="text"
+                      value={tier.price}
+                      onChange={(e) => setPricingTiers(pricingTiers.map(t => t.id === tier.id ? { ...t, price: e.target.value } : t))}
+                      className="w-full p-3 bg-dark border border-gray-600 rounded-lg text-white focus:border-primary focus:outline-none"
+                      placeholder="Price (e.g., $9.99)"
+                    />
+                    <input
+                      type="text"
+                      value={tier.period || ''}
+                      onChange={(e) => setPricingTiers(pricingTiers.map(t => t.id === tier.id ? { ...t, period: e.target.value } : t))}
+                      className="w-full p-3 bg-dark border border-gray-600 rounded-lg text-white focus:border-primary focus:outline-none"
+                      placeholder="Period (e.g., /month)"
+                    />
+                  </div>
+                  <textarea
+                    value={tier.description}
+                    onChange={(e) => setPricingTiers(pricingTiers.map(t => t.id === tier.id ? { ...t, description: e.target.value } : t))}
+                    rows={2}
+                    className="w-full p-3 bg-dark border border-gray-600 rounded-lg text-white focus:border-primary focus:outline-none resize-none mb-4"
+                    placeholder="Description"
+                  />
+                  <div className="grid grid-cols-2 gap-4 mb-4">
+                    <input
+                      type="text"
+                      value={tier.buttonText}
+                      onChange={(e) => setPricingTiers(pricingTiers.map(t => t.id === tier.id ? { ...t, buttonText: e.target.value } : t))}
+                      className="w-full p-3 bg-dark border border-gray-600 rounded-lg text-white focus:border-primary focus:outline-none"
+                      placeholder="Button text"
+                    />
+                    <input
+                      type="text"
+                      value={tier.buttonLink}
+                      onChange={(e) => setPricingTiers(pricingTiers.map(t => t.id === tier.id ? { ...t, buttonLink: e.target.value } : t))}
+                      className="w-full p-3 bg-dark border border-gray-600 rounded-lg text-white focus:border-primary focus:outline-none"
+                      placeholder="Button link"
+                    />
+                  </div>
+                  <textarea
+                    value={tier.features.join('\n')}
+                    onChange={(e) => setPricingTiers(pricingTiers.map(t => t.id === tier.id ? { ...t, features: e.target.value.split('\n').filter(Boolean) } : t))}
+                    rows={4}
+                    className="w-full p-3 bg-dark border border-gray-600 rounded-lg text-white focus:border-primary focus:outline-none resize-none mb-4"
+                    placeholder="Features (one per line)"
+                  />
+                  <div className="flex items-center justify-between">
+                    <div className="flex gap-4">
+                      <label className="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          checked={tier.enabled}
+                          onChange={(e) => setPricingTiers(pricingTiers.map(t => t.id === tier.id ? { ...t, enabled: e.target.checked } : t))}
+                          className="w-4 h-4 text-primary bg-dark border-gray-600 rounded focus:ring-primary"
+                        />
+                        <span className="text-text-secondary">Enabled</span>
+                      </label>
+                      <label className="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          checked={tier.highlighted}
+                          onChange={(e) => setPricingTiers(pricingTiers.map(t => t.id === tier.id ? { ...t, highlighted: e.target.checked } : t))}
+                          className="w-4 h-4 text-primary bg-dark border-gray-600 rounded focus:ring-primary"
+                        />
+                        <span className="text-text-secondary">Highlighted</span>
+                      </label>
+                    </div>
+                    <button
+                      onClick={() => setPricingTiers(pricingTiers.filter(t => t.id !== tier.id))}
+                      className="flex items-center gap-2 text-red-400 hover:text-red-300"
+                    >
+                      <Trash2 size={16} /> Delete
+                    </button>
+                  </div>
+                </div>
+              ))}
+              <button onClick={() => { savePricingTiers(pricingTiers); showSaved(); }} className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-colors ${
+                saved ? 'bg-green-600 text-white' : 'bg-primary text-dark hover:bg-primary-dark'
+              }`}>
+                <Save size={18} /> {saved ? 'Saved!' : 'Save Pricing'}
               </button>
             </div>
           </div>

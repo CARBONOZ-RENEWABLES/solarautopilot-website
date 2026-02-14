@@ -1,5 +1,5 @@
 {
-  "logo": "SolarAutopilot",
+  "logo": "S",
   "navigation": [
     {
       "label": "Features",
@@ -8,6 +8,10 @@
     {
       "label": "AI System",
       "href": "/#ai-features"
+    },
+    {
+      "label": "Pricing",
+      "href": "/pricing"
     },
     {
       "label": "API",

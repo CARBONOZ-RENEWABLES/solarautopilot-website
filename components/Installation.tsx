@@ -14,7 +14,34 @@ const iconMap: Record<string, any> = {
 }
 
 export default function Installation() {
-  const [content, setContent] = useState<InstallationContent>({ title: "", subtitle: "", platforms: [], stats: [] })
+  const [content, setContent] = useState<InstallationContent>({
+    title: '<span class="text-primary">Installation</span> Guide',
+    subtitle: 'Step-by-step instructions for installing SolarAutopilot on your preferred platform.',
+    platforms: [
+      {
+        id: '1',
+        name: 'Windows',
+        steps: [
+          'Visit GitHub Actions → Universal Builds workflow',
+          'Download "windows-installers" artifact',
+          'Extract ZIP and run the .exe installer',
+          'If SmartScreen appears, click "More info" → "Run anyway"',
+          'Launch from Start Menu or Desktop shortcut'
+        ],
+        requirements: [
+          'Requires Windows 10 or later',
+          'Automatic Docker integration if Docker is installed'
+        ],
+        enabled: true
+      }
+    ],
+    stats: [
+      { id: '1', value: '5+', label: 'Platforms', enabled: true },
+      { id: '2', value: 'Free', label: 'Download', enabled: true },
+      { id: '3', value: '12.7%', label: 'Cost Savings', enabled: true },
+      { id: '4', value: 'AI', label: 'Powered', enabled: true }
+    ]
+  })
   const [selectedPlatform, setSelectedPlatform] = useState<number>(0)
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null)
 
@@ -22,10 +49,28 @@ export default function Installation() {
     getInstallationContent().then(setContent)
   }, [])
 
-  const copyToClipboard = (text: string, index: number) => {
-    navigator.clipboard.writeText(text)
-    setCopiedIndex(index)
-    setTimeout(() => setCopiedIndex(null), 2000)
+  const copyToClipboard = async (text: string, index: number) => {
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopiedIndex(index)
+      setTimeout(() => setCopiedIndex(null), 2000)
+    } catch (err) {
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea')
+      textArea.value = text
+      textArea.style.position = 'fixed'
+      textArea.style.left = '-999999px'
+      document.body.appendChild(textArea)
+      textArea.select()
+      try {
+        document.execCommand('copy')
+        setCopiedIndex(index)
+        setTimeout(() => setCopiedIndex(null), 2000)
+      } catch (e) {
+        console.error('Copy failed:', e)
+      }
+      document.body.removeChild(textArea)
+    }
   }
 
 

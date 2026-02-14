@@ -1,0 +1,53 @@
+[
+  {
+    "id": "1",
+    "name": "Free",
+    "price": "$0",
+    "description": "Perfect for getting started",
+    "features": [
+      "Basic monitoring",
+      "Community support",
+      "Single inverter",
+      "Manual optimization"
+    ],
+    "highlighted": false,
+    "enabled": true,
+    "buttonText": "Get Started",
+    "buttonLink": "/#download"
+  },
+  {
+    "id": "2",
+    "name": "Pro",
+    "price": "$9.99",
+    "period": "/month",
+    "description": "For serious solar enthusiasts",
+    "features": [
+      "AI-powered optimization",
+      "Priority support",
+      "Multiple inverters",
+      "Advanced analytics",
+      "API access"
+    ],
+    "highlighted": true,
+    "enabled": true,
+    "buttonText": "Start Free Trial",
+    "buttonLink": "/contact"
+  },
+  {
+    "id": "3",
+    "name": "Enterprise",
+    "price": "Custom",
+    "description": "For large installations",
+    "features": [
+      "Everything in Pro",
+      "Dedicated support",
+      "Custom integrations",
+      "SLA guarantee",
+      "On-premise deployment"
+    ],
+    "highlighted": false,
+    "enabled": true,
+    "buttonText": "Contact Sales",
+    "buttonLink": "/contact"
+  }
+]

@@ -1,16 +1,13 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 import { Menu, X, Github, Download } from 'lucide-react'
-import { getHeaderContent, HeaderContent } from '../lib/admin'
+import headerData from '../content/collections/header.json'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [headerConfig, setHeaderConfig] = useState<HeaderContent>({ logo: 'S', navigation: [] })
-
-  useEffect(() => {
-    getHeaderContent().then(setHeaderConfig)
-  }, [])
+  const headerConfig = headerData
 
   return (
     <header className="fixed top-0 w-full bg-dark/95 backdrop-blur-md border-b border-dark-border z-50 shadow-card">

@@ -1,0 +1,22 @@
+{
+  "title": "Complete <span class=\"text-primary\">User Guide</span>",
+  "subtitle": "Step-by-step instructions to get the most out of SolarAutopilot",
+  "sections": [
+    {
+      "id": "1771059269614",
+      "title": "Installation",
+      "description": "Choose your platform (Home Assistant, Docker, Desktop)",
+      "icon": "book",
+      "subsections": [
+        {
+          "title": "Subsection",
+          "steps": [
+            "Step 1"
+          ]
+        }
+      ],
+      "enabled": true
+    }
+  ],
+  "proTips": []
+}
