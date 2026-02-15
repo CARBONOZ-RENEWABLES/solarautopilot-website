@@ -1685,18 +1685,21 @@ export default function AdminPage() {
                           + Add Step
                         </button>
                       </div>
-                      {platform.steps.map((step, sIndex) => (
+                      {platform.steps.map((step, sIndex) => {
+                        const stepText = typeof step === 'string' ? step : (step as any).text || ''
+                        const stepImage = typeof step === 'string' ? '' : (step as any).image || ''
+                        return (
                         <div key={sIndex} className="border border-gray-700 rounded p-2 mb-2">
                           <div className="flex gap-2 mb-2">
                             <input
                               type="text"
-                              value={typeof step === 'string' ? step : step.text}
+                              value={stepText}
                               onChange={(e) => {
                                 const newPlatforms = [...installation.platforms]
                                 if (typeof step === 'string') {
-                                  newPlatforms[pIndex].steps[sIndex] = { text: e.target.value, image: '' }
+                                  newPlatforms[pIndex].steps[sIndex] = { text: e.target.value, image: '' } as any
                                 } else {
-                                  newPlatforms[pIndex].steps[sIndex].text = e.target.value
+                                  (newPlatforms[pIndex].steps[sIndex] as any).text = e.target.value
                                 }
                                 setInstallation(prev => ({ ...prev, platforms: newPlatforms }))
                               }}
@@ -1716,7 +1719,7 @@ export default function AdminPage() {
                           </div>
                           <label className="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded cursor-pointer text-xs">
                             <Upload size={12} />
-                            {(typeof step !== 'string' && step.image) ? 'Change Image' : 'Add Image'}
+                            {stepImage ? 'Change Image' : 'Add Image'}
                             <input
                               type="file"
                               accept="image/*"
@@ -1733,9 +1736,9 @@ export default function AdminPage() {
                                     const newPlatforms = [...installation.platforms]
                                     const currentStep = newPlatforms[pIndex].steps[sIndex]
                                     newPlatforms[pIndex].steps[sIndex] = {
-                                      text: typeof currentStep === 'string' ? currentStep : currentStep.text,
+                                      text: typeof currentStep === 'string' ? currentStep : (currentStep as any).text,
                                       image: data.url
-                                    }
+                                    } as any
                                     setInstallation(prev => ({ ...prev, platforms: newPlatforms }))
                                   } finally {
                                     setUploadingGuide(false)
@@ -1745,13 +1748,13 @@ export default function AdminPage() {
                               disabled={uploadingGuide}
                             />
                           </label>
-                          {typeof step !== 'string' && step.image && (
+                          {stepImage && (
                             <div className="mt-2">
-                              <img src={step.image} alt="Step" className="rounded border border-gray-600 max-w-[200px]" />
+                              <img src={stepImage} alt="Step" className="rounded border border-gray-600 max-w-[200px]" />
                               <button
                                 onClick={() => {
                                   const newPlatforms = [...installation.platforms]
-                                  newPlatforms[pIndex].steps[sIndex].image = ''
+                                  (newPlatforms[pIndex].steps[sIndex] as any).image = ''
                                   setInstallation(prev => ({ ...prev, platforms: newPlatforms }))
                                 }}
                                 className="text-red-400 hover:text-red-300 text-xs mt-1"
@@ -1761,7 +1764,8 @@ export default function AdminPage() {
                             </div>
                           )}
                         </div>
-                      ))}
+                        )
+                      })}
                     </div>
                     
                     <div className="mb-3">
