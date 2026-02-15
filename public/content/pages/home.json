@@ -1,0 +1,36 @@
+{
+  "title": "SolarAutopilot - AI Solar Management",
+  "slug": "home",
+  "sections": [
+    {
+      "type": "hero",
+      "title": "AI-Powered Solar Energy Management",
+      "subtitle": "Optimize your solar system with intelligent automation and achieve 12.7% cost savings",
+      "cta": {
+        "primary": "Download Now",
+        "secondary": "View Demo"
+      },
+      "trustIndicators": ["Open Source", "No Subscription", "Privacy First"]
+    },
+    {
+      "type": "features",
+      "title": "Advanced Features",
+      "items": [
+        {
+          "title": "AI Optimization Engine",
+          "description": "Machine learning algorithms optimize energy usage patterns",
+          "icon": "brain"
+        },
+        {
+          "title": "Real-time Monitoring",
+          "description": "Live dashboard with comprehensive system metrics",
+          "icon": "activity"
+        }
+      ]
+    }
+  ],
+  "seo": {
+    "title": "SolarAutopilot - AI Solar Energy Management System",
+    "description": "Optimize your solar energy system with AI-powered automation. Achieve 12.7% cost savings with intelligent solar management."
+  }
+}

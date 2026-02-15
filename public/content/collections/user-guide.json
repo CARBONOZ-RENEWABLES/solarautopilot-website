@@ -1,0 +1,103 @@
+{
+  "title": "Complete <span class=\"text-primary\">User Guide</span>",
+  "subtitle": "Step-by-step instructions to get the most out of SolarAutopilot",
+  "sections": [
+    {
+      "id": "getting-started",
+      "title": "Getting Started",
+      "description": "Initial setup and configuration",
+      "icon": "rocket",
+      "subsections": [
+        {
+          "title": "First Time Setup",
+          "steps": [
+            "Open SolarAutopilot dashboard",
+            "Navigate to Settings → Configuration",
+            "Enter your inverter details",
+            "Test the connection"
+          ],
+          "image": ""
+        },
+        {
+          "title": "Connect Your Inverter",
+          "steps": [
+            "Select your inverter brand from the dropdown",
+            "Enter IP address or serial connection",
+            "Configure communication protocol",
+            "Save and verify connection status"
+          ],
+          "image": ""
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "id": "configuration",
+      "title": "Configuration",
+      "description": "Customize settings for optimal performance",
+      "icon": "settings",
+      "subsections": [
+        {
+          "title": "Battery Settings",
+          "steps": [
+            "Set minimum and maximum SOC levels",
+            "Configure charge/discharge rates",
+            "Enable battery protection features"
+          ],
+          "image": ""
+        },
+        {
+          "title": "Grid Settings",
+          "steps": [
+            "Enter your electricity tariff rates",
+            "Set peak and off-peak hours",
+            "Configure grid export limits"
+          ],
+          "image": ""
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "id": "1771163922624",
+      "title": "New Section",
+      "description": "Section description",
+      "icon": "book",
+      "subsections": [
+        {
+          "title": "Subsection",
+          "steps": [
+            "Step 1",
+            "New step",
+            "New step"
+          ],
+          "image": ""
+        }
+      ],
+      "enabled": true
+    }
+  ],
+  "proTips": [
+    {
+      "id": "tip1",
+      "title": "Optimize Battery Life",
+      "description": "Keep SOC between 20-80% for longer battery lifespan",
+      "icon": "battery",
+      "enabled": true
+    },
+    {
+      "id": "tip2",
+      "title": "Monitor Performance",
+      "description": "Check daily reports to track savings and system health",
+      "icon": "bar-chart",
+      "enabled": true
+    },
+    {
+      "id": "tip3",
+      "title": "Update Regularly",
+      "description": "Keep SolarAutopilot updated for latest features and fixes",
+      "icon": "shield",
+      "enabled": true
+    }
+  ]
+}

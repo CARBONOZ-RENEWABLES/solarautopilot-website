@@ -6,13 +6,16 @@ export async function POST(request: NextRequest) {
   try {
     const { collection, data } = await request.json()
     const contentPath = path.join(process.cwd(), 'content', 'collections', `${collection}.json`)
+    const publicPath = path.join(process.cwd(), 'public', 'content', 'collections', `${collection}.json`)
     
-    const dir = path.dirname(contentPath)
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true })
+    // Save to both locations
+    for (const filePath of [contentPath, publicPath]) {
+      const dir = path.dirname(filePath)
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true })
+      }
+      fs.writeFileSync(filePath, JSON.stringify(data, null, 2))
     }
-    
-    fs.writeFileSync(contentPath, JSON.stringify(data, null, 2))
     
     return NextResponse.json({ success: true })
   } catch (error) {

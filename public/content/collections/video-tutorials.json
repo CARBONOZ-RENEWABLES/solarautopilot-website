@@ -1,0 +1,17 @@
+[
+  {
+    "id": "1",
+    "title": "CARBONOZ Group Introduction",
+    "duration": "5:32",
+    "rating": 4.9,
+    "videoId": "I76HPteaZuE",
+    "startTime": 6,
+    "description": "Get SolarAutopilot running in under 6 minutes. From download to first optimization.",
+    "topics": [
+      "Installation",
+      "Configuration",
+      "First Run"
+    ],
+    "enabled": true
+  }
+]

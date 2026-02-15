@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1",
+    "question": "How does the AI system work without weather APIs?",
+    "answer": "Our AI uses pattern-based learning from your historical InfluxDB data combined with astronomical calculations for sun position. It learns seasonal patterns and adapts to your specific location and conditions.",
+    "enabled": true
+  },
+  {
+    "id": "2",
+    "question": "What accuracy can I expect from the predictions?",
+    "answer": "Solar generation forecasting achieves 85%+ accuracy for next-day predictions, while load forecasting reaches 90%+ accuracy. The system improves over time as it learns your specific patterns.",
+    "enabled": true
+  },
+  {
+    "id": "3",
+    "question": "How much can I save with the intelligent charging?",
+    "answer": "Users typically see 12.7% cost improvement compared to fixed tariff systems. The Deep Q-Network reinforcement learning optimizer considers dynamic pricing, battery health, and your consumption patterns.",
+    "enabled": true
+  },
+  {
+    "id": "4",
+    "question": "What inverters are supported?",
+    "answer": "SolarAutopilot supports Deye, Sunsynk, and Growatt inverters with more being added regularly. The system works with any inverter that provides data to InfluxDB.",
+    "enabled": true
+  },
+  {
+    "id": "5",
+    "question": "How long does it take for the AI to learn my patterns?",
+    "answer": "Initial training takes 1-7 days, active learning continues for 8-30 days, optimization occurs from day 31-90, and maintenance mode begins after 90 days with 95%+ confidence.",
+    "enabled": true
+  }
+]

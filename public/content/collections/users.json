@@ -1,0 +1,8 @@
+[
+  {
+    "id": "admin",
+    "email": "admin@solarautopilot.com",
+    "role": "admin",
+    "password": "hashed-password-here"
+  }
+]

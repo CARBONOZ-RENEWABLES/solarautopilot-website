@@ -1740,32 +1740,20 @@ export default function AdminPage() {
                               type="file"
                               accept="image/*"
                               className="hidden"
-                              onChange={async (e) => {
+                              onChange={(e) => {
                                 const file = e.target.files?.[0]
                                 if (file) {
-                                  setUploadingGuide(true)
-                                  const formData = new FormData()
-                                  formData.append('file', file)
-                                  try {
-                                    const res = await fetch('/api/upload-guide-image', { method: 'POST', body: formData })
-                                    const data = await res.json()
-                                    if (data.success) {
-                                      const newPlatforms = [...installation.platforms]
-                                      const currentStep = newPlatforms[pIndex].steps[sIndex]
-                                      newPlatforms[pIndex].steps[sIndex] = {
-                                        text: typeof currentStep === 'string' ? currentStep : (currentStep as any).text,
-                                        image: data.url
-                                      } as any
-                                      setInstallation(prev => ({ ...prev, platforms: newPlatforms }))
-                                      alert('Image uploaded successfully!')
-                                    } else {
-                                      alert('Upload failed: ' + (data.error || 'Unknown error'))
-                                    }
-                                  } catch (error) {
-                                    alert('Upload failed: ' + error)
-                                  } finally {
-                                    setUploadingGuide(false)
+                                  const reader = new FileReader()
+                                  reader.onload = (event) => {
+                                    const newPlatforms = [...installation.platforms]
+                                    const currentStep = newPlatforms[pIndex].steps[sIndex]
+                                    newPlatforms[pIndex].steps[sIndex] = {
+                                      text: typeof currentStep === 'string' ? currentStep : (currentStep as any).text,
+                                      image: event.target?.result as string
+                                    } as any
+                                    setInstallation(prev => ({ ...prev, platforms: newPlatforms }))
                                   }
+                                  reader.readAsDataURL(file)
                                 }
                               }}
                               disabled={uploadingGuide}
@@ -1932,7 +1920,12 @@ export default function AdminPage() {
                 ))}
               </div>
               
-              <button onClick={() => { saveInstallationContent(installation); showSaved(); }} className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-colors ${
+              <button onClick={async () => { 
+                await saveInstallationContent(installation); 
+                showSaved();
+                // Trigger refresh on other tabs
+                localStorage.setItem('content-updated', Date.now().toString());
+              }} className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-colors ${
                 saved ? 'bg-green-600 text-white' : 'bg-primary text-dark hover:bg-primary-dark'
               }`}>
                 <Save size={18} /> {saved ? 'Saved!' : 'Save Installation'}
@@ -2127,28 +2120,16 @@ export default function AdminPage() {
                                 type="file"
                                 accept="image/*"
                                 className="hidden"
-                                onChange={async (e) => {
+                                onChange={(e) => {
                                   const file = e.target.files?.[0]
                                   if (file) {
-                                    setUploadingGuide(true)
-                                    const formData = new FormData()
-                                    formData.append('file', file)
-                                    try {
-                                      const res = await fetch('/api/upload-guide-image', { method: 'POST', body: formData })
-                                      const data = await res.json()
-                                      if (data.success) {
-                                        const newSections = [...userGuide.sections] as typeof userGuide.sections
-                                        (newSections[sIndex].subsections[ssIndex] as any).image = data.url
-                                        setUserGuide(prev => ({ ...prev, sections: newSections }))
-                                        alert('Image uploaded successfully!')
-                                      } else {
-                                        alert('Upload failed: ' + (data.error || 'Unknown error'))
-                                      }
-                                    } catch (error) {
-                                      alert('Upload failed: ' + error)
-                                    } finally {
-                                      setUploadingGuide(false)
+                                    const reader = new FileReader()
+                                    reader.onload = (event) => {
+                                      const newSections = [...userGuide.sections] as typeof userGuide.sections
+                                      (newSections[sIndex].subsections[ssIndex] as any).image = event.target?.result as string
+                                      setUserGuide(prev => ({ ...prev, sections: newSections }))
                                     }
+                                    reader.readAsDataURL(file)
                                   }
                                 }}
                                 disabled={uploadingGuide}
@@ -2289,7 +2270,12 @@ export default function AdminPage() {
                 ))}
               </div>
               
-              <button onClick={() => { saveUserGuideContent(userGuide); showSaved(); }} className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-colors ${
+              <button onClick={async () => { 
+                await saveUserGuideContent(userGuide); 
+                showSaved();
+                // Trigger refresh on other tabs
+                localStorage.setItem('content-updated', Date.now().toString());
+              }} className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-colors ${
                 saved ? 'bg-green-600 text-white' : 'bg-primary text-dark hover:bg-primary-dark'
               }`}>
                 <Save size={18} /> {saved ? 'Saved!' : 'Save User Guide'}

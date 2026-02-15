@@ -1,0 +1,43 @@
+{
+  "title": "From Installation to Optimization in Minutes",
+  "subtitle": "No complex configuration. No manual rules. Just intelligent optimization that works out of the box.",
+  "ctaText": "Start Your 5-Minute Setup",
+  "steps": [
+    {
+      "id": "1",
+      "number": 1,
+      "icon": "download",
+      "title": "Install",
+      "description": "Download for your platform with one-command installation and Docker support included.",
+      "details": ["Cross-platform binaries", "Docker containers", "Package managers"],
+      "enabled": true
+    },
+    {
+      "id": "2",
+      "number": 2,
+      "icon": "link",
+      "title": "Connect",
+      "description": "Point to Solar Assistant and auto-discover all components with automatic entity mapping.",
+      "details": ["Auto-discovery", "MQTT/REST API", "Entity mapping"],
+      "enabled": true
+    },
+    {
+      "id": "3",
+      "number": 3,
+      "icon": "settings",
+      "title": "Configure",
+      "description": "Add your Tibber API key, configure MQTT broker, set preferences, and enable AI engine.",
+      "details": ["MQTT broker setup", "API integration", "AI activation"],
+      "enabled": true
+    },
+    {
+      "id": "4",
+      "number": 4,
+      "icon": "trending-up",
+      "title": "Optimize",
+      "description": "AI learns your patterns, makes smart decisions 24/7, and continuously improves performance.",
+      "details": ["Pattern learning", "24/7 operation", "Continuous improvement"],
+      "enabled": true
+    }
+  ]
+}

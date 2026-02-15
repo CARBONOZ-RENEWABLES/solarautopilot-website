@@ -1,0 +1,95 @@
+{
+  "title": "Academic-Grade <span class=\"text-primary\">AI System</span>",
+  "subtitle": "Advanced machine learning that learns your patterns and optimizes energy usage without external APIs",
+  "badgeText": "AI-Powered Intelligence",
+  "performanceTitle": "Performance <span class=\"text-primary\">Metrics</span>",
+  "learningTitle": "AI Learning <span class=\"text-primary\">Process</span>",
+  "academicTitle": "Based on <span class=\"text-primary\">Academic Research</span>",
+  "academicDescription": "Our AI system implements findings from peer-reviewed research: \"Do dynamic electricity tariffs change the gains of residential PV-battery systems?\"",
+  "performanceMetrics": [
+    {
+      "label": "Solar Accuracy",
+      "value": "85%+",
+      "description": "Next-day prediction accuracy"
+    },
+    {
+      "label": "Load Accuracy",
+      "value": "90%+",
+      "description": "Consumption forecasting"
+    },
+    {
+      "label": "Cost Savings",
+      "value": "12.7%",
+      "description": "vs traditional systems"
+    },
+    {
+      "label": "Learning Period",
+      "value": "30-90d",
+      "description": "Optimal performance"
+    }
+  ],
+  "learningPhases": [
+    {
+      "phase": "Phase 1",
+      "title": "Initial Training",
+      "days": "Day 1-7",
+      "confidence": "30-50%",
+      "activities": [
+        "Load historical data from InfluxDB",
+        "Train solar predictor models",
+        "Build load forecasting baseline",
+        "Detect initial patterns"
+      ]
+    },
+    {
+      "phase": "Phase 2",
+      "title": "Active Learning",
+      "days": "Day 8-30",
+      "confidence": "50-80%",
+      "activities": [
+        "Compare predictions vs outcomes",
+        "Update model weights",
+        "Improve pattern recognition",
+        "Refine charging strategies"
+      ]
+    },
+    {
+      "phase": "Phase 3",
+      "title": "Optimization",
+      "days": "Day 31-90",
+      "confidence": "80-95%",
+      "activities": [
+        "Fine-tune charging decisions",
+        "Learn optimal timing patterns",
+        "Maximize cost savings",
+        "Seasonal adaptation"
+      ]
+    },
+    {
+      "phase": "Phase 4",
+      "title": "Maintenance",
+      "days": "Day 90+",
+      "confidence": "95%+",
+      "activities": [
+        "Continuous incremental learning",
+        "Performance monitoring",
+        "Stable high performance",
+        "Automatic adaptation"
+      ]
+    }
+  ],
+  "academicPoints": [
+    {
+      "title": "Battery Optimization",
+      "description": "Different strategies for small (≤15kWh), medium (15-20kWh), and large (>20kWh) batteries"
+    },
+    {
+      "title": "Price Thresholds",
+      "description": "Optimal charging at ≤8¢/kWh with 90.25% round-trip efficiency"
+    },
+    {
+      "title": "Proven Results",
+      "description": "12.7% cost improvement validated through academic research"
+    }
+  ]
+}

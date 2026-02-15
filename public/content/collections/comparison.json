@@ -1,0 +1,40 @@
+{
+  "title": "<span class=\"text-primary\">SolarAutopilot</span> vs Traditional Systems",
+  "subtitle": "See how SolarAutopilot's multi-platform approach compares to traditional solar management and Home Assistant-only solutions.",
+  "features": [
+    {
+      "id": "1",
+      "name": "Cross-Platform Support",
+      "traditional": false,
+      "ha": "HA Only",
+      "solar": "Desktop Apps + HA Add-on",
+      "enabled": true
+    },
+    {
+      "id": "2",
+      "name": "AI Optimization",
+      "traditional": false,
+      "ha": false,
+      "solar": true,
+      "enabled": true
+    },
+    {
+      "id": "3",
+      "name": "Cost Savings",
+      "traditional": "0%",
+      "ha": "~5%",
+      "solar": "Up to 12.7%",
+      "enabled": true
+    },
+    {
+      "id": "4",
+      "name": "Setup Time",
+      "traditional": "Hours",
+      "ha": "Hours",
+      "solar": "5 Minutes",
+      "enabled": true
+    }
+  ],
+  "bottomTitle": "Why Choose <span class=\"text-primary\">SolarAutopilot</span>?",
+  "bottomSubtitle": "The only cross-platform solution that combines advanced AI optimization with zero-configuration setup. Run on any platform - start saving money in minutes, not hours."
+}

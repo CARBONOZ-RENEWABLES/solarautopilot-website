@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { Rocket, Settings, Zap, Brain, Database, Bell, Target, Shield, BarChart, Battery, Book, Download, Code, ChevronRight, CheckCircle2, ArrowRight } from 'lucide-react'
-import { getUserGuideContent, UserGuideContent } from '@/lib/admin'
+import { UserGuideContent } from '@/lib/admin'
 
 const iconMap: Record<string, any> = {
   rocket: Rocket,
@@ -22,19 +22,34 @@ const iconMap: Record<string, any> = {
 }
 
 export default function UserGuide() {
-  const [content, setContent] = useState<UserGuideContent>({ title: "", subtitle: "", sections: [], proTips: [] })
+  const [content, setContent] = useState<UserGuideContent | null>(null)
   const [activeSection, setActiveSection] = useState<string | null>(null)
+  const [refreshKey, setRefreshKey] = useState(0)
 
   useEffect(() => {
-    getUserGuideContent().then(data => {
-      setContent(data)
-      if (data.sections.length > 0) setActiveSection(data.sections[0].id)
+    fetch(`/content/collections/user-guide.json?v=${refreshKey}`, {
+      cache: 'no-store',
+      headers: { 'Cache-Control': 'no-cache' }
     })
+      .then(res => res.json())
+      .then(data => {
+        setContent(data)
+        if (data.sections?.length > 0) setActiveSection(data.sections[0].id)
+      })
+  }, [refreshKey])
+
+  // Listen for storage events to refresh
+  useEffect(() => {
+    const handleStorage = () => setRefreshKey(prev => prev + 1)
+    window.addEventListener('storage', handleStorage)
+    return () => window.removeEventListener('storage', handleStorage)
   }, [])
 
-  const enabledSections = content.sections.filter(s => s.enabled)
-  const enabledTips = content.proTips.filter(t => t.enabled)
+  const enabledSections = content?.sections?.filter(s => s.enabled) || []
+  const enabledTips = content?.proTips?.filter(t => t.enabled) || []
   const activeContent = enabledSections.find(s => s.id === activeSection)
+
+  if (!content) return null
 
   return (
     <section id="user-guide" className="section-padding bg-gradient-to-b from-dark to-dark-secondary">

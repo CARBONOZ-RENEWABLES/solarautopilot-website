@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { Monitor, Apple, HardDrive, Container, Server, CheckCircle, Download, ArrowRight, Copy, Check } from 'lucide-react'
-import { getInstallationContent, InstallationContent } from '@/lib/admin'
+import { InstallationContent } from '@/lib/admin'
 
 const iconMap: Record<string, any> = {
   'Windows': Monitor,
@@ -14,39 +14,25 @@ const iconMap: Record<string, any> = {
 }
 
 export default function Installation() {
-  const [content, setContent] = useState<InstallationContent>({
-    title: '<span class="text-primary">Installation</span> Guide',
-    subtitle: 'Step-by-step instructions for installing SolarAutopilot on your preferred platform.',
-    platforms: [
-      {
-        id: '1',
-        name: 'Windows',
-        steps: [
-          'Visit GitHub Actions → Universal Builds workflow',
-          'Download "windows-installers" artifact',
-          'Extract ZIP and run the .exe installer',
-          'If SmartScreen appears, click "More info" → "Run anyway"',
-          'Launch from Start Menu or Desktop shortcut'
-        ],
-        requirements: [
-          'Requires Windows 10 or later',
-          'Automatic Docker integration if Docker is installed'
-        ],
-        enabled: true
-      }
-    ],
-    stats: [
-      { id: '1', value: '5+', label: 'Platforms', enabled: true },
-      { id: '2', value: 'Free', label: 'Download', enabled: true },
-      { id: '3', value: '12.7%', label: 'Cost Savings', enabled: true },
-      { id: '4', value: 'AI', label: 'Powered', enabled: true }
-    ]
-  })
+  const [content, setContent] = useState<InstallationContent | null>(null)
   const [selectedPlatform, setSelectedPlatform] = useState<number>(0)
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null)
+  const [refreshKey, setRefreshKey] = useState(0)
 
   useEffect(() => {
-    getInstallationContent().then(setContent)
+    fetch(`/content/collections/installation.json?v=${refreshKey}`, {
+      cache: 'no-store',
+      headers: { 'Cache-Control': 'no-cache' }
+    })
+      .then(res => res.json())
+      .then(data => setContent(data))
+  }, [refreshKey])
+
+  // Listen for storage events to refresh
+  useEffect(() => {
+    const handleStorage = () => setRefreshKey(prev => prev + 1)
+    window.addEventListener('storage', handleStorage)
+    return () => window.removeEventListener('storage', handleStorage)
   }, [])
 
   const copyToClipboard = async (text: string, index: number) => {
@@ -74,10 +60,10 @@ export default function Installation() {
   }
 
 
-  const enabledPlatforms = content.platforms?.filter(p => p.enabled) || []
-  const enabledStats = content.stats?.filter(s => s.enabled) || []
+  const enabledPlatforms = content?.platforms?.filter(p => p.enabled) || []
+  const enabledStats = content?.stats?.filter(s => s.enabled) || []
 
-  if (enabledPlatforms.length === 0) return null
+  if (!content || enabledPlatforms.length === 0) return null
 
   return (
     <section className="section-padding bg-dark relative overflow-hidden">
@@ -183,8 +169,8 @@ export default function Installation() {
                   Installation Steps
                 </h4>
                 {enabledPlatforms[selectedPlatform].steps.map((step, stepIndex) => {
-                  const stepText = typeof step === 'string' ? step : step.text
-                  const stepImage = typeof step === 'object' && step.image ? step.image : ''
+                  const stepText = typeof step === 'string' ? step : (step as any).text
+                  const stepImage = typeof step === 'object' && (step as any).image ? (step as any).image : ''
                   
                   return (
                     <motion.div

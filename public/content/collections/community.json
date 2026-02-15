@@ -1,0 +1,56 @@
+{
+  "title": "Join the <span class=\"text-primary\">Community</span>",
+  "subtitle": "Connect with users, get support, and contribute to the future of solar energy management",
+  "links": [
+    {
+      "id": "1",
+      "icon": "github",
+      "title": "GitHub",
+      "description": "Source code, issues, and contributions",
+      "items": [
+        "Open Source",
+        "MIT License",
+        "Active Development"
+      ],
+      "enabled": true
+    },
+    {
+      "id": "2",
+      "icon": "message-circle",
+      "title": "Discord Community",
+      "description": "Chat with users and developers",
+      "items": [
+        "Real-time Chat",
+        "Support",
+        "Discussions"
+      ],
+      "enabled": true
+    },
+    {
+      "id": "3",
+      "icon": "book-open",
+      "title": "Documentation",
+      "description": "Complete guides and tutorials",
+      "items": [
+        "User Guides",
+        "API Docs",
+        "Examples"
+      ],
+      "enabled": true
+    },
+    {
+      "id": "4",
+      "icon": "mail",
+      "title": "Email Support",
+      "description": "Direct support from the team",
+      "items": [
+        "24-48h Response",
+        "Technical Help",
+        "Bug Reports"
+      ],
+      "enabled": true
+    }
+  ],
+  "ctaTitle": "Be Part of the <span class=\"text-primary\">Movement</span>",
+  "ctaSubtitle": "Join thousands of users optimizing their solar systems with AI. Together, we're building a sustainable future powered by intelligent energy management."
+}
