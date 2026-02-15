@@ -1622,6 +1622,22 @@ export default function AdminPage() {
         {activeTab === 'installation' && (
           <div className="bg-dark-secondary rounded-lg p-6">
             <h2 className="text-xl font-semibold mb-6 text-primary">Installation Section</h2>
+            
+            {/* Help Notice */}
+            <div className="bg-primary/10 border border-primary/30 rounded-lg p-4 mb-6">
+              <h3 className="text-primary font-semibold mb-2 flex items-center gap-2">
+                <Upload size={18} />
+                How to Add Images to Installation Steps
+              </h3>
+              <ol className="text-text-secondary text-sm space-y-1">
+                <li>1. Expand a platform below and find the step you want to add an image to</li>
+                <li>2. Click the yellow "Add Image" button next to the step</li>
+                <li>3. Select an image file from your computer</li>
+                <li>4. Wait for "Image uploaded successfully!" confirmation</li>
+                <li>5. Click "Save Installation" at the bottom to persist changes</li>
+              </ol>
+            </div>
+            
             <div className="space-y-6">
               <input
                 type="text"
@@ -1717,9 +1733,9 @@ export default function AdminPage() {
                               <Trash2 size={12} />
                             </button>
                           </div>
-                          <label className="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded cursor-pointer text-xs">
+                          <label className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-dark px-2 py-1 rounded cursor-pointer text-xs font-medium">
                             <Upload size={12} />
-                            {stepImage ? 'Change Image' : 'Add Image'}
+                            {uploadingGuide ? 'Uploading...' : (stepImage ? 'Change Image' : 'Add Image')}
                             <input
                               type="file"
                               accept="image/*"
@@ -1733,13 +1749,20 @@ export default function AdminPage() {
                                   try {
                                     const res = await fetch('/api/upload-guide-image', { method: 'POST', body: formData })
                                     const data = await res.json()
-                                    const newPlatforms = [...installation.platforms]
-                                    const currentStep = newPlatforms[pIndex].steps[sIndex]
-                                    newPlatforms[pIndex].steps[sIndex] = {
-                                      text: typeof currentStep === 'string' ? currentStep : (currentStep as any).text,
-                                      image: data.url
-                                    } as any
-                                    setInstallation(prev => ({ ...prev, platforms: newPlatforms }))
+                                    if (data.success) {
+                                      const newPlatforms = [...installation.platforms]
+                                      const currentStep = newPlatforms[pIndex].steps[sIndex]
+                                      newPlatforms[pIndex].steps[sIndex] = {
+                                        text: typeof currentStep === 'string' ? currentStep : (currentStep as any).text,
+                                        image: data.url
+                                      } as any
+                                      setInstallation(prev => ({ ...prev, platforms: newPlatforms }))
+                                      alert('Image uploaded successfully!')
+                                    } else {
+                                      alert('Upload failed: ' + (data.error || 'Unknown error'))
+                                    }
+                                  } catch (error) {
+                                    alert('Upload failed: ' + error)
                                   } finally {
                                     setUploadingGuide(false)
                                   }
@@ -1922,6 +1945,22 @@ export default function AdminPage() {
         {activeTab === 'userGuide' && (
           <div className="bg-dark-secondary rounded-lg p-6">
             <h2 className="text-xl font-semibold mb-6 text-primary">User Guide Section</h2>
+            
+            {/* Help Notice */}
+            <div className="bg-primary/10 border border-primary/30 rounded-lg p-4 mb-6">
+              <h3 className="text-primary font-semibold mb-2 flex items-center gap-2">
+                <Upload size={18} />
+                How to Add Images to User Guide
+              </h3>
+              <ol className="text-text-secondary text-sm space-y-1">
+                <li>1. Expand a section below and find the subsection you want to add an image to</li>
+                <li>2. Click the yellow "Add Image" button at the bottom of the subsection</li>
+                <li>3. Select an image file from your computer</li>
+                <li>4. Wait for "Image uploaded successfully!" confirmation</li>
+                <li>5. Click "Save User Guide" at the bottom to persist changes</li>
+              </ol>
+            </div>
+            
             <div className="space-y-6">
               <input
                 type="text"
@@ -2081,9 +2120,9 @@ export default function AdminPage() {
                             </div>
                           ))}
                           <div className="mt-2">
-                            <label className="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded cursor-pointer text-xs inline-flex">
+                            <label className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-dark px-2 py-1 rounded cursor-pointer text-xs inline-flex font-medium">
                               <Upload size={12} />
-                              {(subsection as any).image ? 'Change Image' : 'Add Image'}
+                              {uploadingGuide ? 'Uploading...' : ((subsection as any).image ? 'Change Image' : 'Add Image')}
                               <input
                                 type="file"
                                 accept="image/*"
@@ -2097,9 +2136,16 @@ export default function AdminPage() {
                                     try {
                                       const res = await fetch('/api/upload-guide-image', { method: 'POST', body: formData })
                                       const data = await res.json()
-                                      const newSections = [...userGuide.sections] as typeof userGuide.sections
-                                      (newSections[sIndex].subsections[ssIndex] as any).image = data.url
-                                      setUserGuide(prev => ({ ...prev, sections: newSections }))
+                                      if (data.success) {
+                                        const newSections = [...userGuide.sections] as typeof userGuide.sections
+                                        (newSections[sIndex].subsections[ssIndex] as any).image = data.url
+                                        setUserGuide(prev => ({ ...prev, sections: newSections }))
+                                        alert('Image uploaded successfully!')
+                                      } else {
+                                        alert('Upload failed: ' + (data.error || 'Unknown error'))
+                                      }
+                                    } catch (error) {
+                                      alert('Upload failed: ' + error)
                                     } finally {
                                       setUploadingGuide(false)
                                     }
