@@ -119,6 +119,7 @@ export interface UserGuideSection {
 export interface UserGuideSubsection {
   title: string
   steps: string[]
+  image?: string
 }
 
 export interface ProTip {
@@ -239,7 +240,7 @@ export interface InstallationContent {
 export interface InstallationPlatform {
   id: string
   name: string
-  steps: string[]
+  steps: (string | { text: string; image?: string })[]
   requirements: string[]
   enabled: boolean
 }

@@ -1753,8 +1753,8 @@ export default function AdminPage() {
                               <img src={stepImage} alt="Step" className="rounded border border-gray-600 max-w-[200px]" />
                               <button
                                 onClick={() => {
-                                  const newPlatforms = [...installation.platforms]
-                                  (newPlatforms[pIndex].steps[sIndex] as any).image = ''
+                                  const newPlatforms = JSON.parse(JSON.stringify(installation.platforms))
+                                  newPlatforms[pIndex].steps[sIndex].image = ''
                                   setInstallation(prev => ({ ...prev, platforms: newPlatforms }))
                                 }}
                                 className="text-red-400 hover:text-red-300 text-xs mt-1"
@@ -2083,7 +2083,7 @@ export default function AdminPage() {
                           <div className="mt-2">
                             <label className="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded cursor-pointer text-xs inline-flex">
                               <Upload size={12} />
-                              {subsection.image ? 'Change Image' : 'Add Image'}
+                              {(subsection as any).image ? 'Change Image' : 'Add Image'}
                               <input
                                 type="file"
                                 accept="image/*"
@@ -2097,8 +2097,8 @@ export default function AdminPage() {
                                     try {
                                       const res = await fetch('/api/upload-guide-image', { method: 'POST', body: formData })
                                       const data = await res.json()
-                                      const newSections = [...userGuide.sections]
-                                      newSections[sIndex].subsections[ssIndex].image = data.url
+                                      const newSections = [...userGuide.sections] as typeof userGuide.sections
+                                      (newSections[sIndex].subsections[ssIndex] as any).image = data.url
                                       setUserGuide(prev => ({ ...prev, sections: newSections }))
                                     } finally {
                                       setUploadingGuide(false)
@@ -2108,9 +2108,9 @@ export default function AdminPage() {
                                 disabled={uploadingGuide}
                               />
                             </label>
-                            {subsection.image && (
+                            {(subsection as any).image && (
                               <div className="mt-2">
-                                <img src={subsection.image} alt="Subsection" className="rounded border border-gray-600 max-w-[200px]" />
+                                <img src={(subsection as any).image} alt="Subsection" className="rounded border border-gray-600 max-w-[200px]" />
                                 <button
                                   onClick={() => {
                                     const newSections = [...userGuide.sections]
