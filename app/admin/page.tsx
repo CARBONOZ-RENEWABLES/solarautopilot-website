@@ -95,6 +95,7 @@ export default function AdminPage() {
   const [roadmaps, setRoadmaps] = useState([])
   const [pricingTiers, setPricingTiers] = useState<PricingTier[]>([])
   const [uploading, setUploading] = useState(false)
+  const [uploadingGuide, setUploadingGuide] = useState(false)
   const [editingBlog, setEditingBlog] = useState<any>(null)
   const [editingChangelog, setEditingChangelog] = useState<any>(null)
   const [editingRoadmap, setEditingRoadmap] = useState<any>(null)
@@ -1685,28 +1686,80 @@ export default function AdminPage() {
                         </button>
                       </div>
                       {platform.steps.map((step, sIndex) => (
-                        <div key={sIndex} className="flex gap-2 mb-2">
-                          <input
-                            type="text"
-                            value={step}
-                            onChange={(e) => {
-                              const newPlatforms = [...installation.platforms]
-                              newPlatforms[pIndex].steps[sIndex] = e.target.value
-                              setInstallation(prev => ({ ...prev, platforms: newPlatforms }))
-                            }}
-                            className="flex-1 p-2 bg-dark border border-gray-600 rounded text-white focus:border-primary focus:outline-none text-xs"
-                            placeholder="Step description"
-                          />
-                          <button
-                            onClick={() => {
-                              const newPlatforms = [...installation.platforms]
-                              newPlatforms[pIndex].steps = platform.steps.filter((_, i) => i !== sIndex)
-                              setInstallation(prev => ({ ...prev, platforms: newPlatforms }))
-                            }}
-                            className="text-red-400 hover:text-red-300 p-1"
-                          >
-                            <Trash2 size={12} />
-                          </button>
+                        <div key={sIndex} className="border border-gray-700 rounded p-2 mb-2">
+                          <div className="flex gap-2 mb-2">
+                            <input
+                              type="text"
+                              value={typeof step === 'string' ? step : step.text}
+                              onChange={(e) => {
+                                const newPlatforms = [...installation.platforms]
+                                if (typeof step === 'string') {
+                                  newPlatforms[pIndex].steps[sIndex] = { text: e.target.value, image: '' }
+                                } else {
+                                  newPlatforms[pIndex].steps[sIndex].text = e.target.value
+                                }
+                                setInstallation(prev => ({ ...prev, platforms: newPlatforms }))
+                              }}
+                              className="flex-1 p-2 bg-dark border border-gray-600 rounded text-white focus:border-primary focus:outline-none text-xs"
+                              placeholder="Step description"
+                            />
+                            <button
+                              onClick={() => {
+                                const newPlatforms = [...installation.platforms]
+                                newPlatforms[pIndex].steps = platform.steps.filter((_, i) => i !== sIndex)
+                                setInstallation(prev => ({ ...prev, platforms: newPlatforms }))
+                              }}
+                              className="text-red-400 hover:text-red-300 p-1"
+                            >
+                              <Trash2 size={12} />
+                            </button>
+                          </div>
+                          <label className="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded cursor-pointer text-xs">
+                            <Upload size={12} />
+                            {(typeof step !== 'string' && step.image) ? 'Change Image' : 'Add Image'}
+                            <input
+                              type="file"
+                              accept="image/*"
+                              className="hidden"
+                              onChange={async (e) => {
+                                const file = e.target.files?.[0]
+                                if (file) {
+                                  setUploadingGuide(true)
+                                  const formData = new FormData()
+                                  formData.append('file', file)
+                                  try {
+                                    const res = await fetch('/api/upload-guide-image', { method: 'POST', body: formData })
+                                    const data = await res.json()
+                                    const newPlatforms = [...installation.platforms]
+                                    const currentStep = newPlatforms[pIndex].steps[sIndex]
+                                    newPlatforms[pIndex].steps[sIndex] = {
+                                      text: typeof currentStep === 'string' ? currentStep : currentStep.text,
+                                      image: data.url
+                                    }
+                                    setInstallation(prev => ({ ...prev, platforms: newPlatforms }))
+                                  } finally {
+                                    setUploadingGuide(false)
+                                  }
+                                }
+                              }}
+                              disabled={uploadingGuide}
+                            />
+                          </label>
+                          {typeof step !== 'string' && step.image && (
+                            <div className="mt-2">
+                              <img src={step.image} alt="Step" className="rounded border border-gray-600 max-w-[200px]" />
+                              <button
+                                onClick={() => {
+                                  const newPlatforms = [...installation.platforms]
+                                  newPlatforms[pIndex].steps[sIndex].image = ''
+                                  setInstallation(prev => ({ ...prev, platforms: newPlatforms }))
+                                }}
+                                className="text-red-400 hover:text-red-300 text-xs mt-1"
+                              >
+                                Remove Image
+                              </button>
+                            </div>
+                          )}
                         </div>
                       ))}
                     </div>
@@ -2023,6 +2076,50 @@ export default function AdminPage() {
                               </button>
                             </div>
                           ))}
+                          <div className="mt-2">
+                            <label className="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded cursor-pointer text-xs inline-flex">
+                              <Upload size={12} />
+                              {subsection.image ? 'Change Image' : 'Add Image'}
+                              <input
+                                type="file"
+                                accept="image/*"
+                                className="hidden"
+                                onChange={async (e) => {
+                                  const file = e.target.files?.[0]
+                                  if (file) {
+                                    setUploadingGuide(true)
+                                    const formData = new FormData()
+                                    formData.append('file', file)
+                                    try {
+                                      const res = await fetch('/api/upload-guide-image', { method: 'POST', body: formData })
+                                      const data = await res.json()
+                                      const newSections = [...userGuide.sections]
+                                      newSections[sIndex].subsections[ssIndex].image = data.url
+                                      setUserGuide(prev => ({ ...prev, sections: newSections }))
+                                    } finally {
+                                      setUploadingGuide(false)
+                                    }
+                                  }
+                                }}
+                                disabled={uploadingGuide}
+                              />
+                            </label>
+                            {subsection.image && (
+                              <div className="mt-2">
+                                <img src={subsection.image} alt="Subsection" className="rounded border border-gray-600 max-w-[200px]" />
+                                <button
+                                  onClick={() => {
+                                    const newSections = [...userGuide.sections]
+                                    newSections[sIndex].subsections[ssIndex].image = ''
+                                    setUserGuide(prev => ({ ...prev, sections: newSections }))
+                                  }}
+                                  className="text-red-400 hover:text-red-300 text-xs mt-1"
+                                >
+                                  Remove Image
+                                </button>
+                              </div>
+                            )}
+                          </div>
                         </div>
                       ))}
                     </div>

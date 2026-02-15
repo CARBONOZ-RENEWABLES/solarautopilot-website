@@ -182,35 +182,49 @@ export default function Installation() {
                   <div className="w-1 h-6 bg-primary rounded-full" />
                   Installation Steps
                 </h4>
-                {enabledPlatforms[selectedPlatform].steps.map((step, stepIndex) => (
-                  <motion.div
-                    key={stepIndex}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: stepIndex * 0.1 }}
-                    className="group"
-                  >
-                    <div className="flex items-start gap-4 p-4 rounded-xl bg-dark-secondary/50 hover:bg-dark-secondary transition-colors">
-                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center shadow-lg">
-                        <span className="text-dark text-sm font-bold">{stepIndex + 1}</span>
+                {enabledPlatforms[selectedPlatform].steps.map((step, stepIndex) => {
+                  const stepText = typeof step === 'string' ? step : step.text
+                  const stepImage = typeof step === 'object' && step.image ? step.image : ''
+                  
+                  return (
+                    <motion.div
+                      key={stepIndex}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: stepIndex * 0.1 }}
+                      className="group space-y-3"
+                    >
+                      <div className="flex items-start gap-4 p-4 rounded-xl bg-dark-secondary/50 hover:bg-dark-secondary transition-colors">
+                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center shadow-lg">
+                          <span className="text-dark text-sm font-bold">{stepIndex + 1}</span>
+                        </div>
+                        <div className="flex-1">
+                          <p className="body-base text-white leading-relaxed">{stepText}</p>
+                        </div>
+                        <button
+                          onClick={() => copyToClipboard(stepText, stepIndex)}
+                          className="flex-shrink-0 p-2 rounded-lg bg-dark-tertiary hover:bg-primary/20 transition-colors"
+                          title="Copy step"
+                        >
+                          {copiedIndex === stepIndex ? (
+                            <Check className="w-4 h-4 text-primary" />
+                          ) : (
+                            <Copy className="w-4 h-4 text-text-secondary group-hover:text-primary transition-colors" />
+                          )}
+                        </button>
                       </div>
-                      <div className="flex-1">
-                        <p className="body-base text-white leading-relaxed">{step}</p>
-                      </div>
-                      <button
-                        onClick={() => copyToClipboard(step, stepIndex)}
-                        className="flex-shrink-0 p-2 rounded-lg bg-dark-tertiary hover:bg-primary/20 transition-colors"
-                        title="Copy step"
-                      >
-                        {copiedIndex === stepIndex ? (
-                          <Check className="w-4 h-4 text-primary" />
-                        ) : (
-                          <Copy className="w-4 h-4 text-text-secondary group-hover:text-primary transition-colors" />
-                        )}
-                      </button>
-                    </div>
-                  </motion.div>
-                ))}
+                      {stepImage && (
+                        <div className="ml-12 rounded-lg overflow-hidden border border-dark-border hover:border-primary/30 transition-colors shadow-lg">
+                          <img 
+                            src={stepImage} 
+                            alt={`Step ${stepIndex + 1}: ${stepText}`}
+                            className="w-full h-auto"
+                          />
+                        </div>
+                      )}
+                    </motion.div>
+                  )
+                })}
               </div>
 
               {/* Requirements */}

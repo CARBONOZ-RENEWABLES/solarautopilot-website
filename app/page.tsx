@@ -41,13 +41,13 @@ export default function Home() {
       <Installation />
       <AIFeatures />
       <UserGuide />
-      <TechnicalSpecs />
       <APIDocs />
       <VideoTutorials />
       <FAQ />
       <Community />
       <Comparison />
       <DownloadSection />
+      <TechnicalSpecs />
       <FinalCTA />
       <Footer />
     </main>

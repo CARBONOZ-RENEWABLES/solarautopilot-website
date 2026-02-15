@@ -1,0 +1,58 @@
+[
+  {
+    "id": "1",
+    "title": "Solar Generation Forecasting",
+    "description": "AI learns from historical patterns without weather APIs",
+    "icon": "brain",
+    "features": [
+      "Pattern-based learning from InfluxDB data",
+      "Astronomical calculations for sun position",
+      "Seasonal adaptation and trend detection",
+      "85%+ accuracy for next-day predictions"
+    ],
+    "color": "from-yellow-500 to-orange-500",
+    "enabled": true
+  },
+  {
+    "id": "2",
+    "title": "Load Forecasting",
+    "description": "Predicts household consumption patterns",
+    "icon": "trending-up",
+    "features": [
+      "Time-based consumption analysis",
+      "Weekend vs weekday pattern detection",
+      "Seasonal heating/cooling adaptation",
+      "90%+ accuracy for load prediction"
+    ],
+    "color": "from-blue-500 to-cyan-500",
+    "enabled": true
+  },
+  {
+    "id": "3",
+    "title": "Intelligent Charging Strategy",
+    "description": "Deep Q-Network reinforcement learning optimizer",
+    "icon": "zap",
+    "features": [
+      "12.7% cost improvement vs fixed tariffs",
+      "Multi-objective optimization",
+      "Dynamic pricing integration",
+      "Battery health consideration"
+    ],
+    "color": "from-green-500 to-emerald-500",
+    "enabled": true
+  },
+  {
+    "id": "4",
+    "title": "Pattern Detection",
+    "description": "Unsupervised learning for energy patterns",
+    "icon": "target",
+    "features": [
+      "Daily pattern clustering (k-means)",
+      "Weather pattern inference",
+      "Seasonal transition detection",
+      "Anomaly detection and alerts"
+    ],
+    "color": "from-purple-500 to-pink-500",
+    "enabled": true
+  }
+]

@@ -43,40 +43,28 @@ export default function TechnicalSpecs() {
           </p>
         </motion.div>
 
-        {/* Technology Stack */}
+        {/* Technology Stack - Shortened */}
         <div className="mb-20">
-          <h3 className="heading-3 text-center mb-12">
+          <h3 className="heading-3 text-center mb-8">
             Technology <span className="text-primary">Stack</span>
           </h3>
           
-          <div className="grid-auto-fit">
-            {enabledTechStack.map((stack, index) => {
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+            {enabledTechStack.slice(0, 4).map((stack, index) => {
               const Icon = iconMap[stack.icon] || Server
               return (
                 <motion.div
                   key={stack.id}
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className="card-interactive"
+                  className="card text-center p-4"
                 >
-                  <div className="flex items-center space-x-4 mb-6">
-                    <div className="bg-primary/10 border border-primary/20 rounded-2xl p-3 flex-shrink-0">
-                      <Icon className="text-primary" size={24} />
-                    </div>
-                    <h4 className="heading-4">{stack.category}</h4>
+                  <div className="bg-primary/10 border border-primary/20 rounded-xl p-3 inline-flex mb-3">
+                    <Icon className="text-primary" size={20} />
                   </div>
-                  
-                  <ul className="space-y-4">
-                    {stack.technologies.map((tech, techIndex) => (
-                      <li key={techIndex} className="border-l-2 border-primary/30 pl-4 hover:border-primary/60 transition-colors">
-                        <div className="font-semibold body-base text-text-primary">{tech.name}</div>
-                        <div className="body-small text-text-secondary mt-1">{tech.description}</div>
-                        <div className="caption text-primary mt-2 font-medium">{tech.version}</div>
-                      </li>
-                    ))}
-                  </ul>
+                  <h4 className="body-base font-semibold">{stack.category}</h4>
                 </motion.div>
               )
             })}

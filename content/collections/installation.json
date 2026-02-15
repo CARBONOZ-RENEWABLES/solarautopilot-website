@@ -4,11 +4,18 @@
     {
       "id": "1",
       "title": "Home Assistant Add-on",
+      "description": "Install directly from Home Assistant Add-on Store",
       "url": "https://github.com/CARBONOZ-RENEWABLES/solarautopilot",
       "enabled": true
     },
     {
       "id": "2",
+      "title": "Docker Container",
+      "description": "Run SolarAutopilot in a Docker container with MQTT broker",
+      "enabled": true
+    },
+    {
+      "id": "3",
       "title": "Desktop App",
       "description": "Download from GitHub Actions → Universal Builds → Extract → Install",
       "enabled": true
@@ -43,13 +50,70 @@
   "subtitle": "Step-by-step instructions for installing SolarAutopilot on your preferred platform.",
   "platforms": [
     {
-      "id": "1769965714858",
-      "name": "New Platform",
+      "id": "home-assistant",
+      "name": "Home Assistant",
       "steps": [
-        "Step 1"
+        {
+          "text": "Open Home Assistant",
+          "image": ""
+        },
+        {
+          "text": "Navigate to Settings → Add-ons → Add-on Store",
+          "image": ""
+        },
+        {
+          "text": "Search for 'SolarAutopilot'",
+          "image": ""
+        },
+        {
+          "text": "Click Install and wait for completion",
+          "image": ""
+        },
+        {
+          "text": "Configure your inverter settings",
+          "image": ""
+        },
+        {
+          "text": "Start the add-on",
+          "image": ""
+        }
       ],
       "requirements": [
-        "New requirement"
+        "Home Assistant OS or Supervised",
+        "Compatible inverter (Deye, Sofar, Growatt, etc.)",
+        "Network connection to inverter"
+      ],
+      "enabled": true
+    },
+    {
+      "id": "docker",
+      "name": "Docker",
+      "steps": [
+        {
+          "text": "Pull the Docker image: docker pull carbonoz/solarautopilot",
+          "image": ""
+        },
+        {
+          "text": "Create docker-compose.yml with MQTT broker configuration",
+          "image": ""
+        },
+        {
+          "text": "Configure environment variables for your inverter",
+          "image": ""
+        },
+        {
+          "text": "Run: docker-compose up -d",
+          "image": ""
+        },
+        {
+          "text": "Access web interface at http://localhost:8080",
+          "image": ""
+        }
+      ],
+      "requirements": [
+        "Docker and Docker Compose installed",
+        "MQTT broker (included in compose file)",
+        "Tailscale or OpenVPN for remote access (optional)"
       ],
       "enabled": true
     }

@@ -1,0 +1,29 @@
+{
+  "title": "API <span class=\"text-primary\">Documentation</span>",
+  "subtitle": "Complete REST API and MQTT reference for integrating with SolarAutopilot",
+  "tabs": [
+    "REST API",
+    "MQTT Topics",
+    "WebSocket",
+    "AI System"
+  ],
+  "endpoints": [
+    {
+      "id": "1",
+      "category": "AI System",
+      "method": "GET",
+      "path": "/ai/status",
+      "description": "Get current AI system status and confidence levels",
+      "response": "{\n  \"enabled\": true,\n  \"confidence\": 0.87\n}",
+      "enabled": true
+    },
+    {
+      "id": "2",
+      "category": "System Data",
+      "method": "GET",
+      "path": "/api/system/status",
+      "description": "Get real-time system status",
+      "enabled": true
+    }
+  ]
+}

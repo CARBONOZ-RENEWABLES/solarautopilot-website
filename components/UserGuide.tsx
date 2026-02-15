@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
-import { Rocket, Settings, Zap, Brain, Database, Bell, Target, Shield, BarChart, Battery, Book, Download, Code, ChevronRight, ExternalLink, Search } from 'lucide-react'
+import { Rocket, Settings, Zap, Brain, Database, Bell, Target, Shield, BarChart, Battery, Book, Download, Code, ChevronRight, CheckCircle2, ArrowRight } from 'lucide-react'
 import { getUserGuideContent, UserGuideContent } from '@/lib/admin'
 
 const iconMap: Record<string, any> = {
@@ -37,78 +37,131 @@ export default function UserGuide() {
   const activeContent = enabledSections.find(s => s.id === activeSection)
 
   return (
-    <section id="user-guide" className="section-padding bg-[#0b0c0e]">
-      <div className="max-w-[1400px] mx-auto px-6">
+    <section id="user-guide" className="section-padding bg-gradient-to-b from-dark to-dark-secondary">
+      <div className="container-custom">
         {/* Header */}
-        <div className="mb-12">
-          <h2 className="text-4xl font-semibold text-white mb-3" dangerouslySetInnerHTML={{ __html: content.title }} />
-          <p className="text-lg text-gray-400">{content.subtitle}</p>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="heading-2 mb-6" dangerouslySetInnerHTML={{ __html: content.title }} />
+          <p className="body-large text-text-secondary max-w-3xl mx-auto">{content.subtitle}</p>
+        </motion.div>
 
-        {/* Main Layout */}
-        <div className="flex gap-8">
-          {/* Sidebar Navigation */}
-          <div className="w-64 flex-shrink-0">
-            <div className="sticky top-24 space-y-1">
-              {enabledSections.map((section) => {
-                const Icon = iconMap[section.icon] || Settings
-                const isActive = activeSection === section.id
-                return (
-                  <button
-                    key={section.id}
-                    onClick={() => setActiveSection(section.id)}
-                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-all ${
-                      isActive 
-                        ? 'bg-primary/10 text-primary border-l-2 border-primary' 
-                        : 'text-gray-400 hover:bg-white/5 hover:text-white border-l-2 border-transparent'
-                    }`}
-                  >
-                    <Icon size={18} />
-                    <span className="text-sm font-medium">{section.title}</span>
-                  </button>
-                )
-              })}
-            </div>
+        {/* Main Layout - Modern Card Grid */}
+        <div className="grid lg:grid-cols-4 gap-6 mb-16">
+          {/* Navigation Cards */}
+          <div className="lg:col-span-1 space-y-3">
+            {enabledSections.map((section, idx) => {
+              const Icon = iconMap[section.icon] || Settings
+              const isActive = activeSection === section.id
+              return (
+                <motion.button
+                  key={section.id}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4, delay: idx * 0.1 }}
+                  viewport={{ once: true }}
+                  onClick={() => setActiveSection(section.id)}
+                  className={`w-full group relative overflow-hidden rounded-xl p-4 text-left transition-all duration-300 ${
+                    isActive 
+                      ? 'bg-gradient-to-br from-primary/20 to-primary/5 border-2 border-primary shadow-glow' 
+                      : 'bg-dark-secondary border border-dark-border hover:border-primary/40 hover:bg-dark-tertiary'
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <div className={`p-2 rounded-lg transition-colors ${
+                      isActive ? 'bg-primary/20' : 'bg-dark-tertiary group-hover:bg-primary/10'
+                    }`}>
+                      <Icon className={isActive ? 'text-primary' : 'text-text-secondary group-hover:text-primary'} size={20} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h4 className={`font-semibold body-base truncate ${
+                        isActive ? 'text-primary' : 'text-text-primary group-hover:text-primary'
+                      }`}>
+                        {section.title}
+                      </h4>
+                    </div>
+                    {isActive && (
+                      <CheckCircle2 className="text-primary flex-shrink-0" size={18} />
+                    )}
+                  </div>
+                </motion.button>
+              )
+            })}
           </div>
 
-          {/* Content Area */}
-          <div className="flex-1 min-w-0">
+          {/* Content Area - Modern Design */}
+          <div className="lg:col-span-3">
             {activeContent && (
               <motion.div
                 key={activeContent.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: 0.4 }}
+                className="card-elevated"
               >
-                {/* Section Header */}
-                <div className="mb-8 pb-6 border-b border-white/10">
-                  <div className="flex items-center gap-3 mb-3">
+                {/* Section Header with Icon */}
+                <div className="flex items-start gap-4 mb-8 pb-6 border-b border-dark-border">
+                  <div className="bg-primary/10 border border-primary/20 rounded-2xl p-4">
                     {(() => {
                       const Icon = iconMap[activeContent.icon] || Settings
-                      return <Icon className="text-primary" size={24} />
+                      return <Icon className="text-primary" size={32} />
                     })()}
-                    <h3 className="text-3xl font-semibold text-white">{activeContent.title}</h3>
                   </div>
-                  <p className="text-gray-400">{activeContent.description}</p>
+                  <div className="flex-1">
+                    <h3 className="heading-3 mb-2">{activeContent.title}</h3>
+                    <p className="body-base text-text-secondary">{activeContent.description}</p>
+                  </div>
                 </div>
 
-                {/* Subsections */}
-                <div className="space-y-8">
+                {/* Subsections - Step-by-Step Cards */}
+                <div className="space-y-6">
                   {activeContent.subsections.map((subsection, idx) => (
-                    <div key={idx} className="bg-[#111217] border border-white/10 rounded-lg p-6 hover:border-primary/30 transition-colors">
-                      <h4 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
-                        <span className="text-primary text-sm font-mono bg-primary/10 px-2 py-1 rounded">{idx + 1}</span>
-                        {subsection.title}
-                      </h4>
-                      <div className="space-y-3">
+                    <motion.div
+                      key={idx}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: idx * 0.1 }}
+                      className="bg-dark-secondary border border-dark-border rounded-xl p-6 hover:border-primary/30 transition-all group"
+                    >
+                      {/* Subsection Header */}
+                      <div className="flex items-center gap-3 mb-5">
+                        <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 border border-primary/20">
+                          <span className="text-primary font-bold body-small">{idx + 1}</span>
+                        </div>
+                        <h4 className="heading-4 flex-1">{subsection.title}</h4>
+                        <ArrowRight className="text-primary opacity-0 group-hover:opacity-100 transition-opacity" size={20} />
+                      </div>
+
+                      {/* Steps with Modern Design */}
+                      <div className="space-y-4 pl-11">
                         {subsection.steps.map((step, stepIdx) => (
-                          <div key={stepIdx} className="flex gap-3 group">
-                            <ChevronRight className="text-primary mt-1 flex-shrink-0 group-hover:translate-x-1 transition-transform" size={16} />
-                            <p className="text-gray-300 leading-relaxed">{step}</p>
+                          <div key={stepIdx} className="flex gap-3 group/step">
+                            <div className="mt-1.5">
+                              <div className="w-1.5 h-1.5 rounded-full bg-primary group-hover/step:scale-150 transition-transform" />
+                            </div>
+                            <p className="body-base text-text-secondary group-hover/step:text-text-primary transition-colors leading-relaxed">
+                              {step}
+                            </p>
                           </div>
                         ))}
                       </div>
-                    </div>
+
+                      {/* Subsection Image */}
+                      {subsection.image && (
+                        <div className="mt-6 pl-11 rounded-lg overflow-hidden border border-dark-border hover:border-primary/30 transition-colors">
+                          <img 
+                            src={subsection.image} 
+                            alt={subsection.title}
+                            className="w-full h-auto"
+                          />
+                        </div>
+                      )}
+                    </motion.div>
                   ))}
                 </div>
               </motion.div>
@@ -116,23 +169,44 @@ export default function UserGuide() {
           </div>
         </div>
 
-        {/* Pro Tips */}
+        {/* Pro Tips - Modern Grid */}
         {enabledTips.length > 0 && (
-          <div className="mt-16 pt-12 border-t border-white/10">
-            <h3 className="text-2xl font-semibold text-white mb-6">Best Practices</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {enabledTips.map((tip) => {
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="mt-16"
+          >
+            <div className="text-center mb-10">
+              <h3 className="heading-3 mb-3">
+                Pro <span className="text-primary">Tips</span>
+              </h3>
+              <p className="body-base text-text-secondary">Expert recommendations for optimal performance</p>
+            </div>
+            
+            <div className="grid md:grid-cols-3 gap-6">
+              {enabledTips.map((tip, idx) => {
                 const TipIcon = iconMap[tip.icon] || BarChart
                 return (
-                  <div key={tip.id} className="bg-[#111217] border border-white/10 rounded-lg p-5 hover:border-primary/30 transition-colors">
-                    <TipIcon className="text-primary mb-3" size={20} />
-                    <h4 className="text-white font-medium mb-2">{tip.title}</h4>
-                    <p className="text-sm text-gray-400 leading-relaxed">{tip.description}</p>
-                  </div>
+                  <motion.div
+                    key={tip.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: idx * 0.1 }}
+                    viewport={{ once: true }}
+                    className="card-interactive group"
+                  >
+                    <div className="bg-primary/10 border border-primary/20 rounded-xl p-3 inline-flex mb-4 group-hover:scale-110 transition-transform">
+                      <TipIcon className="text-primary" size={24} />
+                    </div>
+                    <h4 className="heading-4 mb-3">{tip.title}</h4>
+                    <p className="body-small text-text-secondary leading-relaxed">{tip.description}</p>
+                  </motion.div>
                 )
               })}
             </div>
-          </div>
+          </motion.div>
         )}
       </div>
     </section>

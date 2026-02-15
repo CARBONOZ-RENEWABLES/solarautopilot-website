@@ -1,0 +1,44 @@
+[
+  {
+    "id": "1",
+    "title": "AI-Powered Optimization",
+    "description": "Advanced machine learning algorithms continuously optimize your solar energy production and consumption patterns across all platforms.",
+    "icon": "brain",
+    "enabled": true
+  },
+  {
+    "id": "2",
+    "title": "Cross-Platform Flexibility",
+    "description": "Run on Windows, macOS, Linux, Home Assistant, or Docker. Choose the platform that fits your setup best.",
+    "icon": "monitor",
+    "enabled": true
+  },
+  {
+    "id": "3",
+    "title": "Privacy & Security",
+    "description": "All processing happens locally on your hardware. Your energy data never leaves your network, ensuring complete privacy.",
+    "icon": "shield",
+    "enabled": true
+  },
+  {
+    "id": "4",
+    "title": "Real-Time Monitoring",
+    "description": "Track energy production, consumption, and savings with detailed analytics and live dashboards on any device.",
+    "icon": "activity",
+    "enabled": true
+  },
+  {
+    "id": "5",
+    "title": "Cost Optimization",
+    "description": "Achieve up to 12.7% cost reduction through intelligent battery charging and dynamic pricing integration.",
+    "icon": "dollar-sign",
+    "enabled": true
+  },
+  {
+    "id": "6",
+    "title": "CO2 Impact Tracking",
+    "description": "Monitor your environmental impact and carbon savings with integration for marketable CO2 offsets.",
+    "icon": "leaf",
+    "enabled": true
+  }
+]
