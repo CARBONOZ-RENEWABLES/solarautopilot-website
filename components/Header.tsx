@@ -3,11 +3,18 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { Menu, X, Github, Download } from 'lucide-react'
-import headerData from '../content/collections/header.json'
+import { getHeaderContent, HeaderContent } from '../lib/admin'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const headerConfig = headerData
+  const [headerConfig, setHeaderConfig] = useState<HeaderContent>({
+    logo: 'S',
+    navigation: []
+  })
+
+  useEffect(() => {
+    getHeaderContent().then(setHeaderConfig)
+  }, [])
 
   return (
     <header className="fixed top-0 w-full bg-dark/95 backdrop-blur-md border-b border-dark-border z-50 shadow-card">

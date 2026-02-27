@@ -2709,6 +2709,49 @@ export default function AdminPage() {
                     className="w-full p-3 bg-dark border border-gray-600 rounded-lg text-white focus:border-primary focus:outline-none"
                     placeholder="Cover image URL (optional)"
                   />
+                  <div>
+                    <label className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-dark px-4 py-2 rounded cursor-pointer text-sm font-medium inline-flex">
+                      <Upload size={16} />
+                      {uploading ? 'Uploading...' : 'Upload Cover Image'}
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={async (e) => {
+                          const file = e.target.files?.[0]
+                          if (file) {
+                            setUploading(true)
+                            const formData = new FormData()
+                            formData.append('file', file)
+                            formData.append('category', 'blog')
+                            try {
+                              const res = await fetch('/api/upload', { method: 'POST', body: formData })
+                              const data = await res.json()
+                              if (data.success) {
+                                setEditingBlog({...editingBlog, coverImage: data.url})
+                                alert('Image uploaded successfully!')
+                              }
+                            } catch (err) {
+                              alert('Upload failed')
+                            }
+                            setUploading(false)
+                          }
+                        }}
+                        disabled={uploading}
+                      />
+                    </label>
+                    {editingBlog.coverImage && (
+                      <div className="mt-2">
+                        <img src={editingBlog.coverImage} alt="Cover" className="rounded border border-gray-600 max-w-[300px]" />
+                        <button
+                          onClick={() => setEditingBlog({...editingBlog, coverImage: ''})}
+                          className="text-red-400 hover:text-red-300 text-sm mt-1"
+                        >
+                          Remove Image
+                        </button>
+                      </div>
+                    )}
+                  </div>
                   <input
                     type="text"
                     value={Array.isArray(editingBlog.tags) ? editingBlog.tags.join(', ') : ''}
